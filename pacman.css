@@ -1,0 +1,5 @@
+/*css */
+
+div .content:not(#Game){
+    visibility: hidden;
+}
