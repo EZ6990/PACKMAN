@@ -1,4 +1,7 @@
 /*javascript */
+
+$(document).ready(function(){
+
 var context = canvas.getContext("2d");
     var shape = new Object();
     var board;
@@ -160,3 +163,4 @@ var context = canvas.getContext("2d");
             Draw();
         }
     }
+});
