@@ -3,3 +3,7 @@
 div .content:not(#Game){
     visibility: hidden;
 } */
+
+/* #Game{
+    background-color: black;
+} */

@@ -10,7 +10,9 @@ var context = canvas.getContext("2d");
     var start_time;
     var time_elapsed;
     var interval;
-
+    var mouthInterval;
+    var counterR=0;
+    var r=0;
     Start();
 
     function Start() {
@@ -35,6 +37,7 @@ var context = canvas.getContext("2d");
                     } else if (randomNum < 1.0 * (pacman_remain + food_remain) / cnt) {
                         shape.i = i;
                         shape.j = j;
+                        shape.direction=(Math.random()*4)|0+1;
                         pacman_remain--;
                         board[i][j] = 2;
                     } else {
@@ -56,7 +59,8 @@ var context = canvas.getContext("2d");
         addEventListener("keyup", function (e) {
             keysDown[e.code] = false;
         }, false);
-        interval = setInterval(UpdatePosition, 250);
+        interval = setInterval(UpdatePosition, 100);
+        mouthInterval=setInterval(function(){r=Math.abs(Math.sin(++counterR))*15/100;},100);
     }
 
 
@@ -99,12 +103,12 @@ var context = canvas.getContext("2d");
                 center.y = j * 60 + 30;
                 if (board[i][j] === 2) {
                     context.beginPath();
-                    context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+                    context.arc(center.x, center.y, 30, (0.15-r) * Math.PI+(shape.direction-1)*Math.PI/2, (1.85 +r)* Math.PI+(shape.direction-1)*Math.PI/2); // half circle
                     context.lineTo(center.x, center.y);
                     context.fillStyle = pac_color; //color
                     context.fill();
                     context.beginPath();
-                    context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+                    context.arc(center.x + ((1-shape.direction)*(shape.direction%2)+1)*(15-(shape.direction%2)*10) , center.y - ((shape.direction-4)*((shape.direction+1)%2)+1)*(15-((shape.direction+1)%2)*10) , 5,0, 2 * Math.PI); // circle
                     context.fillStyle = "black"; //color
                     context.fill();
                 } else if (board[i][j] === 1) {
@@ -127,24 +131,30 @@ var context = canvas.getContext("2d");
     function UpdatePosition() {
         board[shape.i][shape.j] = 0;
         var x = GetKeyPressed();
+
         if (x === 1) {
             if (shape.j > 0 && board[shape.i][shape.j - 1] !== 4) {
                 shape.j--;
+                shape.direction=4;            
             }
         }
         if (x === 2) {
             if (shape.j < 9 && board[shape.i][shape.j + 1] !== 4) {
                 shape.j++;
+                shape.direction=2;
             }
         }
         if (x === 3) {
             if (shape.i > 0 && board[shape.i - 1][shape.j] !== 4) {
                 shape.i--;
+                shape.direction=3;
             }
+
         }
         if (x === 4) {
             if (shape.i < 9 && board[shape.i + 1][shape.j] !== 4) {
                 shape.i++;
+                shape.direction=1;
             }
         }
         if (board[shape.i][shape.j] === 1) {
