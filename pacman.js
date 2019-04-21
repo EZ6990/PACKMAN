@@ -10,19 +10,32 @@ var context = canvas.getContext("2d");
     var start_time;
     var time_elapsed;
     var interval;
-    var mouthInterval;
+    var attempts=3;
     var counterR=0;
+    var then;
+    var timeLeft = 60000;
     var r=0;
     Start();
 
+    function timeCountDown(){
+        var now = Date.now();
+	    var delta = now - then;
+	    timeLeft-=delta;
+	    if(timeLeft<=0)
+            timeLeft = 0;
+            lblTime.value=timeLeft/1000;
+        then=now;
+    }
     function Start() {
         board = new Array();
         score = 0;
+        lbAttempts.innerText=attempts;
         pac_color = "yellow";
         var cnt = 100;
         var food_remain = 50;
         var pacman_remain = 1;
         start_time = new Date();
+                
         for (var i = 0; i < 10; i++) {
             board[i] = new Array();
             //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
@@ -61,6 +74,8 @@ var context = canvas.getContext("2d");
         }, false);
         interval = setInterval(UpdatePosition, 100);
         mouthInterval=setInterval(function(){r=Math.abs(Math.sin(++counterR))*15/100;},100);
+        then=Date.now();
+        setInterval(timeCountDown,1);
     }
 
 
@@ -95,7 +110,9 @@ var context = canvas.getContext("2d");
     function Draw() {
         context.clearRect(0, 0, canvas.width, canvas.height); //clean board
         lblScore.value = score;
-        lblTime.value = time_elapsed;
+       // lblTime.value = time_elapsed;
+        var specialCandy=Math.random();
+
         for (var i = 0; i < 10; i++) {
             for (var j = 0; j < 10; j++) {
                 var center = new Object();
@@ -112,6 +129,7 @@ var context = canvas.getContext("2d");
                     context.fillStyle = "black"; //color
                     context.fill();
                 } else if (board[i][j] === 1) {
+                   
                     context.beginPath();
                     context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
                     context.fillStyle = "black"; //color
@@ -122,11 +140,32 @@ var context = canvas.getContext("2d");
                     context.fillStyle = "grey"; //color
                     context.fill();
                 }
+                else if (board[i][j] === 5) {
+                    context.beginPath();
+                    context.arc(center.x, center.y, 25, 0, 2 * Math.PI); // circle
+                    context.fillStyle = "green"; //color
+                    context.fill();
+                }
+                
             }
         }
-
-
+        var RandX=Math.floor((Math.random() * 9) + 1);
+        var RandY=Math.floor((Math.random() * 9) + 1);
+        if(board[RandX][RandY] == 0){
+            var specialCandy=Math.random();
+            if(specialCandy<0.05)
+            {
+                center.x = RandX * 60 + 30;
+                center.y = RandY * 60 + 30;
+                context.beginPath();
+                context.arc(center.x, center.y, 25, 0, 2 * Math.PI); // circle
+                context.fillStyle = "green"; //color
+                context.fill();
+                board[RandX][RandY]=5;
+            }
+        }
     }
+    
 
     function UpdatePosition() {
         board[shape.i][shape.j] = 0;
@@ -160,13 +199,16 @@ var context = canvas.getContext("2d");
         if (board[shape.i][shape.j] === 1) {
             score++;
         }
+        if (board[shape.i][shape.j] === 5) {
+            score+=5;
+        }
         board[shape.i][shape.j] = 2;
         var currentTime = new Date();
         time_elapsed = (currentTime - start_time) / 1000;
         if (score >= 20 && time_elapsed <= 10) {
             pac_color = "green";
         }
-        if (score === 50) {
+        if (score >= 50) {
             window.clearInterval(interval);
             window.alert("Game completed");
         } else {
