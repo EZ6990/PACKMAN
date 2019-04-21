@@ -15,6 +15,7 @@ var context = canvas.getContext("2d");
     var then;
     var timeLeft = 60000;
     var r=0;
+    var sound_obj;
     Start();
 
     function timeCountDown(){
@@ -27,6 +28,7 @@ var context = canvas.getContext("2d");
         then=now;
     }
     function Start() {
+        sound_obj = document.getElementById("targetSound");
         board = new Array();
         score = 0;
         lbAttempts.innerText=attempts;
@@ -72,13 +74,20 @@ var context = canvas.getContext("2d");
         addEventListener("keyup", function (e) {
             keysDown[e.code] = false;
         }, false);
+        sound_obj.addEventListener("canplaythrough", startSound, false);
         interval = setInterval(UpdatePosition, 100);
         mouthInterval=setInterval(function(){r=Math.abs(Math.sin(++counterR))*15/100;},100);
         then=Date.now();
         setInterval(timeCountDown,1);
+
+        console.log(sound_obj);
     }
 
 
+    function startSound(){
+        console.log(sound_obj);
+        sound_obj.play();
+    }
     function findRandomEmptyCell(board) {
         var i = Math.floor((Math.random() * 9) + 1);
         var j = Math.floor((Math.random() * 9) + 1);
