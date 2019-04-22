@@ -33,8 +33,11 @@ $(document).ready(function () {
         ghosts = new Array();
         for (var i = 0; i < 1; i++) {//change to input num
             if (i === 0) {
-                ghosts[i] = new ghost("red", 0, 0);//change to color of choosing
+                var g = new ghost("red", 30, 30);//change to color of choosing
+                ghosts[i] = g;
+
             }
+
 
         }
     }
@@ -129,6 +132,7 @@ $(document).ready(function () {
             return 4;
         }
     }
+
     function moveGhosts() {
         ghosts.forEach(g => {
             if (g.position.y - shape.j > 0)
@@ -137,19 +141,23 @@ $(document).ready(function () {
 
         });
     }
+    function tryToMove() {
+
+    }
     function Draw() {
         context.clearRect(0, 0, canvas.width, canvas.height); //clean board
         lblScore.value = score;
         // lblTime.value = time_elapsed;
         var specialCandy = Math.random();
-        var g;
+        var g = 0;
         for (var i = 0; i < 10; i++) {
             for (var j = 0; j < 10; j++) {
                 var center = new Object();
                 center.x = i * 60 + 30;
                 center.y = j * 60 + 30;
-                if (g = checkForGhost() != -1) {
-                    ghosts[g].draw_ghost(context, center.x, center.y);
+                if ((g = checkForGhost(i, j)) != -1) {
+                    ghosts[g].draw_ghost(context);
+
                 }
                 else {
                     if (board[i][j] === 2) {
@@ -203,11 +211,13 @@ $(document).ready(function () {
         }
     }
     function checkForGhost(x, y) {
-        for (var i = 0; i < ghosts.length; i++) {
-            if (ghosts[i].locatedIn(x, y))
-                return i;
 
+        for (var i = 0; i < ghosts.length; i++) {
+            if (ghosts[i].locatedIn(x * 60 + 30, y * 60 + 30)) {
+                return i;
+            }
         }
+
         return -1;
     }
 

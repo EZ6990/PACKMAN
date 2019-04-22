@@ -11,19 +11,25 @@ class ghost {
         this.mul = 2;
         this.ghostColor = color;
         this.position = new Object();
-        this.position.x = 300;
-        this.position.y = 300;
+        this.position.x = x;
+        this.position.y = y;
 
     }
     get position() {
-        return this.position;
+        return this._position;
+    }
+    set position(pos) {
+        this._position = pos;
     }
 
-    locatedIn(x,y){
-        return x==this.position.x && y==this.position.y;
+    locatedIn(x, y) {
+        return x == this.position.x && y == this.position.y;
     }
-    draw_ghost(ctx, centerX, centerY) {
+    draw_ghost(ctx) {
+        
         var mult = this.mul;
+        var centerX = this._position.x;
+        var centerY = this._position.y;
         centerX -= 30;
         centerY += 30;
         ctx.beginPath();
@@ -92,7 +98,7 @@ class ghost {
         ctx.fill();
     }
 
-    moveTowards(x,y){
-        
+    moveTowards(x, y) {
+
     }
 }
