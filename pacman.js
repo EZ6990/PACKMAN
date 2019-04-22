@@ -132,7 +132,7 @@ $(document).ready(function () {
             return 4;
         }
     }
-
+/**unfinished logics of ghosts */
     function moveGhosts() {
         ghosts.forEach(g => {
             if (g.position.y - shape.j > 0)
@@ -144,6 +144,10 @@ $(document).ready(function () {
     function tryToMove() {
 
     }
+    function checkIfDead(){
+        return false;
+    }
+ /**end unfinished logics */   
     function Draw() {
         context.clearRect(0, 0, canvas.width, canvas.height); //clean board
         lblScore.value = score;
@@ -250,6 +254,7 @@ $(document).ready(function () {
                 shape.direction = 1;
             }
         }
+        if(checkIfDead()){}
         else {//not dead
             if (board[shape.i][shape.j] === 1) {
                 score++;
