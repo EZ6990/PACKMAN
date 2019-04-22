@@ -14,8 +14,9 @@ $(document).ready(function () {
     var counterR = 0;
     var then;
     var timeLeft = 60000;
-    var r=0;
+    var r = 0;
     var sound_obj;
+    var ghosts;
     Start();
 
     function timeCountDown() {
@@ -27,6 +28,17 @@ $(document).ready(function () {
         lblTime.value = timeLeft / 1000;
         then = now;
     }
+
+    function createGhost() {
+        ghosts = new Array();
+        for (var i = 0; i < 1; i++) {//change to input num
+            if (i === 0) {
+                ghosts[i] = new ghost("red", 0, 0);//change to color of choosing
+            }
+
+        }
+    }
+
     function Start() {
         sound_obj = document.getElementById("targetSound");
         board = new Array();
@@ -38,13 +50,13 @@ $(document).ready(function () {
         var pacman_remain = 1;
         start_time = new Date();
 
+
+        createGhost();
         for (var i = 0; i < 10; i++) {
             board[i] = new Array();
-            //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
             for (var j = 0; j < 10; j++) {
-                if (i === 0 && j === 0)
-                    board[i][j] = 3;
-                else if ((i === 3 && j === 3) || (i === 3 && j === 4) || (i === 3 && j === 5) || (i === 6 && j === 1) || (i === 6 && j === 2)) {
+                //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
+                if ((i === 3 && j === 3) || (i === 3 && j === 4) || (i === 3 && j === 5) || (i === 6 && j === 1) || (i === 6 && j === 2)) {
                     board[i][j] = 4;
                 } else {
                     var randomNum = Math.random();
@@ -81,10 +93,12 @@ $(document).ready(function () {
         mouthInterval = setInterval(function () { r = Math.abs(Math.sin(++counterR)) * 15 / 100; }, 100);
         then = Date.now();
         setInterval(timeCountDown, 1);
+        setInterval(moveGhosts, 1);
     }
 
 
-    function startSound(){
+
+    function startSound() {
         console.log(sound_obj);
         sound_obj.play();
     }
@@ -115,49 +129,61 @@ $(document).ready(function () {
             return 4;
         }
     }
+    function moveGhosts() {
+        ghosts.forEach(g => {
+            if (g.position.y - shape.j > 0)
+                tryToMove();
 
+
+        });
+    }
     function Draw() {
         context.clearRect(0, 0, canvas.width, canvas.height); //clean board
         lblScore.value = score;
         // lblTime.value = time_elapsed;
         var specialCandy = Math.random();
-
+        var g;
         for (var i = 0; i < 10; i++) {
             for (var j = 0; j < 10; j++) {
                 var center = new Object();
                 center.x = i * 60 + 30;
                 center.y = j * 60 + 30;
-                if (board[i][j] === 2) {
-                    context.beginPath();
-                    context.arc(center.x, center.y, 30, (0.15 - r) * Math.PI + (shape.direction - 1) * Math.PI / 2, (1.85 + r) * Math.PI + (shape.direction - 1) * Math.PI / 2); // half circle
-                    context.lineTo(center.x, center.y);
-                    context.fillStyle = pac_color; //color
-                    context.fill();
-                    context.beginPath();
-                    context.arc(center.x + ((1 - shape.direction) * (shape.direction % 2) + 1) * (15 - (shape.direction % 2) * 10), center.y - ((shape.direction - 4) * ((shape.direction + 1) % 2) + 1) * (15 - ((shape.direction + 1) % 2) * 10), 5, 0, 2 * Math.PI); // circle
-                    context.fillStyle = "black"; //color
-                    context.fill();
-                } else if (board[i][j] === 1) {
+                if (g = checkForGhost() != -1) {
+                    ghosts[g].draw_ghost(context, center.x, center.y);
+                }
+                else {
+                    if (board[i][j] === 2) {
+                        context.beginPath();
+                        context.arc(center.x, center.y, 30, (0.15 - r) * Math.PI + (shape.direction - 1) * Math.PI / 2, (1.85 + r) * Math.PI + (shape.direction - 1) * Math.PI / 2); // half circle
+                        context.lineTo(center.x, center.y);
+                        context.fillStyle = pac_color; //color
+                        context.fill();
+                        context.beginPath();
+                        context.arc(center.x + ((1 - shape.direction) * (shape.direction % 2) + 1) * (15 - (shape.direction % 2) * 10), center.y - ((shape.direction - 4) * ((shape.direction + 1) % 2) + 1) * (15 - ((shape.direction + 1) % 2) * 10), 5, 0, 2 * Math.PI); // circle
+                        context.fillStyle = "black"; //color
+                        context.fill();
+                    } else if (board[i][j] === 1) {
 
-                    context.beginPath();
-                    context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-                    context.fillStyle = "black"; //color
-                    context.fill();
-                } else if (board[i][j] === 3) {
-                    draw_ghost(context,center.x,center.y);
+                        context.beginPath();
+                        context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+                        context.fillStyle = "black"; //color
+                        context.fill();
+                    }
+
+                    else if (board[i][j] === 4) {
+                        context.beginPath();
+                        context.rect(center.x - 30, center.y - 30, 60, 60);
+                        context.fillStyle = "grey"; //color
+                        context.fill();
+                    }
+                    else if (board[i][j] === 5) {
+                        context.beginPath();
+                        context.arc(center.x, center.y, 25, 0, 2 * Math.PI); // circle
+                        context.fillStyle = "green"; //color
+                        context.fill();
+                    }
                 }
-                else if (board[i][j] === 4) {
-                    context.beginPath();
-                    context.rect(center.x - 30, center.y - 30, 60, 60);
-                    context.fillStyle = "grey"; //color
-                    context.fill();
-                }
-                else if (board[i][j] === 5) {
-                    context.beginPath();
-                    context.arc(center.x, center.y, 25, 0, 2 * Math.PI); // circle
-                    context.fillStyle = "green"; //color
-                    context.fill();
-                }
+
 
             }
         }
@@ -176,7 +202,14 @@ $(document).ready(function () {
             }
         }
     }
+    function checkForGhost(x, y) {
+        for (var i = 0; i < ghosts.length; i++) {
+            if (ghosts[i].locatedIn(x, y))
+                return i;
 
+        }
+        return -1;
+    }
 
     function UpdatePosition() {
         board[shape.i][shape.j] = 0;
@@ -207,23 +240,27 @@ $(document).ready(function () {
                 shape.direction = 1;
             }
         }
-        if (board[shape.i][shape.j] === 1) {
-            score++;
-        }
-        if (board[shape.i][shape.j] === 5) {
-            score += 5;
-        }
-        board[shape.i][shape.j] = 2;
-        var currentTime = new Date();
-        time_elapsed = (currentTime - start_time) / 1000;
-        if (score >= 20 && time_elapsed <= 10) {
-            pac_color = "green";
-        }
-        if (score >= 50) {
-            window.clearInterval(interval);
-            window.alert("Game completed");
-        } else {
-            Draw();
-        }
+        else {//not dead
+            if (board[shape.i][shape.j] === 1) {
+                score++;
+            }
+            if (board[shape.i][shape.j] === 5) {
+                score += 5;
+            }
+
+
+            board[shape.i][shape.j] = 2;
+            var currentTime = new Date();
+            time_elapsed = (currentTime - start_time) / 1000;
+            if (score >= 20 && time_elapsed <= 10) {
+                pac_color = "green";
+            }
+            if (score >= 50) {
+                window.clearInterval(interval);
+                window.alert("Game completed");
+            } else {
+                Draw();
+            }
+        }//not dead
     }
 });
