@@ -5,9 +5,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="login_service.js"></script>
+    <script type="text/javascript" src="db.js"></script>
+    <script type="text/javascript" src="register_service.js"></script>
     <script type="text/javascript" src="ghost.js"></script>
     <script type="text/javascript" src="pacman.js"></script>
-    <script type="text/javascript" src="login_service.js"></script>
 </head>
 <body>
     
@@ -15,13 +17,38 @@
     </div>
     
     <div class="Content" id="Register">
-
+        <div class="container">
+            <h2>Register</h2>
+            <label><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" id="runame">
+            <br>
+            <label><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" id="rpsw">
+            <br>
+            <label><b>First Name</b></label>
+            <input type="text" placeholder="Enter First Name" id="rfn">
+            <br>
+            <label><b>Last Name</b></label>
+            <input type="text" placeholder="Enter Last Name" id="rln">
+            <br>
+            <label><b>Email</b></label>
+            <input type="email" placeholder="Enter Email" id="remail">
+            <br>
+            <label><b>Birthdate</b></label>
+            <input type="date" placeholder="Enter Birthdate" id="rbirth">
+            <br>
+            <button type="submit" onclick="register()">Submit</button>
+        </div>
     </div>
     <div class="Content" id="Login">
-        First name: <input type="text" name="fname"><br>
-        Last name: <input type="text" name="lname"><br>
-        <input type="button" onclick="login(fname,lname)" value="Login">
-        </form>
+        <div class="container">
+            <h2>Login</h2>
+            <label><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" id="uname">
+            <label><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" id="psw">
+            <button type="submit" onclick="Login()">Login</button>
+        </div>
     </div>
     
     <div class="Content" id="Settings">
