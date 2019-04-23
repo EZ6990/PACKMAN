@@ -48,6 +48,7 @@ function Login(){
     if (CurrentUser != undefined){
         $("#Game").css("visibility", "visible");
         $("#Login").css("visibility", "hidden");
+        Start();
     }
     else{
         $("#uname").val("");

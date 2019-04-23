@@ -3,14 +3,15 @@
 
 
 function register(){
-    validate_form();
+    if (validate_form()){
+        addUser(new User($("#runame").val(),$("#rpsw").val(),$("#rfn").val(),$("#rln").val(),$("#remail").val(),$("#rbirth").val()));
+        $("#Login").css("visibility", "visible");
+        $("#Register").css("visibility", "hidden");
+    }
 }
 
 function validate_form(){
-    validate_notempty();
-    validate_names();
-    validate_email();
-    validate_password();
+    return validate_notempty() && validate_names() && validate_email() && validate_password();
 }
 
 function validate_notempty(){
@@ -40,7 +41,6 @@ function validate_names(){
         applyError($("#rln"));
         $("#rln").after("<br><label><b style=\"color:red;\">Last Name can be english latters only</b></label>");
     }
-    
     return result1 && result2; 
 }
 

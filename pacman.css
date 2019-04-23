@@ -1,8 +1,8 @@
 /*css */
-/* 
-div .content:not(#Game){
+
+div.Content:not(#Login){
     visibility: hidden;
-} */
+}
 
 /* #Game{
     background-color: black;

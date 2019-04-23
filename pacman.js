@@ -1,22 +1,16 @@
 /*javascript */
 
-$(document).ready(function () {
+var context,shape,board,score,pac_color,start_time,time_elapsed,interval,attempts,counterR,then,timeLeft,r,sound_obj;
 
-    var context = canvas.getContext("2d");
-    var shape = new Object();
-    var board;
-    var score;
-    var pac_color;
-    var start_time;
-    var time_elapsed;
-    var interval;
-    var attempts = 3;
-    var counterR = 0;
-    var then;
-    var timeLeft = 60000;
-    var r=0;
-    var sound_obj;
-    Start();
+ $(document).ready(function () {
+    context = canvas.getContext("2d");
+    sound_obj = document.getElementById("targetSound");
+    shape = new Object();
+    attempts = 3;
+    counterR = 0;
+    timeLeft = 60000;
+    r=0;
+});
 
     function timeCountDown() {
         var now = Date.now();
@@ -28,7 +22,7 @@ $(document).ready(function () {
         then = now;
     }
     function Start() {
-        sound_obj = document.getElementById("targetSound");
+        $("#UserDetails").append("NAME: <label>" + CurrentUser.username + "</label>");
         board = new Array();
         score = 0;
         lbAttempts.innerText = attempts;
@@ -226,4 +220,3 @@ $(document).ready(function () {
             Draw();
         }
     }
-});
