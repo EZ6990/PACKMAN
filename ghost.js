@@ -1,4 +1,4 @@
-class ghost {
+class Ghost {
     // var position = new Object();
     // position.x = 300;
     // position.y = 300;
