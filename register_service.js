@@ -5,8 +5,8 @@
 function register(){
     if (validate_form()){
         addUser(new User($("#runame").val(),$("#rpsw").val(),$("#rfn").val(),$("#rln").val(),$("#remail").val(),$("#rbirth").val()));
-        $("#Login").css("visibility", "visible");
-        $("#Register").css("visibility", "hidden");
+        $("#Login").css("display", "block");
+        $("#Register").css("display", "none");
     }
 }
 

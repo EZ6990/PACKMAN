@@ -46,8 +46,8 @@ function Login(){
 
     CurrentUser = getUserDetail(Username,Password)
     if (CurrentUser != undefined){
-        $("#Game").css("visibility", "visible");
-        $("#Login").css("visibility", "hidden");
+        $("#Game").css("display", "block");
+        $("#Login").css("display", "none");
         Start();
     }
     else{
