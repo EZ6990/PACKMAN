@@ -10,70 +10,91 @@
     <script type="text/javascript" src="register_service.js"></script>
     <script type="text/javascript" src="ghost.js"></script>
     <script type="text/javascript" src="pacman.js"></script>
+    <script type="text/javascript">
+        function showPage(pageID){
+            console.log(pageID)
+            $(".Content").css("display", "none");
+            $("#"+pageID).css("display", "block");
+        }
+
+
+    </script>
 </head>
 <body>
-    
-    <div class="Content" id="Welcome">
-    </div>
-    
-    <div class="Content" id="Register">
-        <div class="container">
-            <h2>Register</h2>
-            <label><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" id="runame">
-            <br>
-            <label><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" id="rpsw">
-            <br>
-            <label><b>First Name</b></label>
-            <input type="text" placeholder="Enter First Name" id="rfn">
-            <br>
-            <label><b>Last Name</b></label>
-            <input type="text" placeholder="Enter Last Name" id="rln">
-            <br>
-            <label><b>Email</b></label>
-            <input type="email" placeholder="Enter Email" id="remail">
-            <br>
-            <label><b>Birthdate</b></label>
-            <input type="date" placeholder="Enter Birthdate" id="rbirth">
-            <br>
-            <button type="submit" onclick="register()">Submit</button>
-        </div>
-    </div>
-    <div class="Content" id="Login">
-        <div class="container">
-            <h2>Login</h2>
-            <label><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" id="uname">
-            <label><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" id="psw">
-            <button type="submit" onclick="Login()">Login</button>
-        </div>
-    </div>
-    
-    <div class="Content" id="Settings">
 
-    </div>
-    <div class="Content" id="About">
-
-    </div>
-    <div class="Content" id="Game">
-            <audio id = "targetSound" preload = "auto">
-                    <source src = "sounds/Power Bots Loop.mp3" type = "audio/mpeg"/>
-            </audio>
-            <div id="UserDetails">
-                
+    <nav>
+        <div class="topnav" id="navigation">
+                <a onclick="showPage('Welcome')" class="active">Welcome</a>
+                <a onclick="showPage('Login')">Login</a>
+                <a onclick="showPage('Register')">Register</a>
+                <a onclick="showPage('About')">About</a>
+            </ul>
+        </div>
+    </nav>
+    <div class="center-block">
+        <div class="center-block Content" id="Welcome">
+            <h2 style="text-align: center;">Welcome</h2>
+            <button type="button" class="btn btn-default btn-block" onclick="showPage('Login')">Login</button>
+            <button type="button" class="btn btn-default btn-block" onclick="showPage('Register')">Register</button>
+        </div>
+        <div class="Content" id="Register">
+            <div class="container">
+                <h2>Register</h2>
+                <label><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" id="runame">
+                <br>
+                <label><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" id="rpsw">
+                <br>
+                <label><b>First Name</b></label>
+                <input type="text" placeholder="Enter First Name" id="rfn">
+                <br>
+                <label><b>Last Name</b></label>
+                <input type="text" placeholder="Enter Last Name" id="rln">
+                <br>
+                <label><b>Email</b></label>
+                <input type="email" placeholder="Enter Email" id="remail">
+                <br>
+                <label><b>Birthdate</b></label>
+                <input type="date" placeholder="Enter Birthdate" id="rbirth">
+                <br>
+                <button type="submit" onclick="register()">Submit</button>
             </div>
-       SCORE:
-        <input id="lblScore" type="text"/>
-        <br/>
-        TIME:
-        <input id="lblTime" type="text"/>
-        <br/>
-        TRIES:
-        <label id="lbAttempts"></label>
-        <br/>
-        <canvas id="canvas" height="600" width="600"></canvas>
+        </div>
+        <div class="Content" id="Login">
+            <div class="container">
+                <h2>Login</h2>
+                <label><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" id="uname">
+                <label><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" id="psw">
+                <button type="submit" onclick="Login()">Login</button>
+            </div>
+        </div>
+        <div class="Content" id="Settings">
+
+        </div>
+        <div class="Content" id="About">
+
+        </div>
+        <div class="Content" id="Game">
+                <audio id = "targetSound" preload = "auto">
+                        <source src = "sounds/Power Bots Loop.mp3" type = "audio/mpeg"/>
+                </audio>
+                <div id="UserDetails">
+
+                </div>
+           SCORE:
+            <input id="lblScore" type="text"/>
+            <br/>
+            TIME:
+            <input id="lblTime" type="text"/>
+            <br/>
+            TRIES:
+            <label id="lbAttempts"></label>
+            <br/>
+            <canvas id="canvas" height="600" width="600"></canvas>
+        </div>
     </div>
 </body>
 </html>
