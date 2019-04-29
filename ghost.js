@@ -8,20 +8,22 @@ class ghost {
     constructor(color, x, y) {
         this.mul = 2;
         this.ghostColor = color;
-        this.position = new Object();
-        this.position.x = x;
-        this.position.y = y;
+        this._position = new Object();
+        this._position.x = x;
+        this._position.y = y;
 
     }
     get position() {
-        return this._position;
+        console.log(score);
+         return this._position;
     }
     set position(pos) {
-        this._position = pos;
+        this._position.x = pos;
+
     }
 
     locatedIn(x, y) {
-        return x == this.position.x && y == this.position.y;
+        return x == this._position.x && y == this._position.y;
     }
     draw_ghost(ctx) {
         
