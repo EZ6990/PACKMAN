@@ -40,8 +40,24 @@ div.center-block{
     top: 50%;
     left: 50%;
     margin-top: -50px;
+    margin-left: -100px;;
+}
+
+div.center-block #Login{
+    margin-top: -50px;
+    margin-left: -100px;
+}
+
+div.center-block #Register{
+    margin-top: -200px;
     margin-left: -100px;
 }
 canvas{
-     border: 1px solid black; 
+     border: 1px solid black;
+}
+#Register .input-group>.input-group-prepend {
+    flex: 0 0 10%;
+}
+.input-group .input-group-text {
+    width: 100%;
 }
