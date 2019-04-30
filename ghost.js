@@ -6,7 +6,7 @@ class Ghost {
     // var mult;
 
     constructor(color, x, y) {
-        this.mul = 2;
+        this.mul = 0.5;
         this.ghostColor = color;
         this._position = new Object();
         this._position.x = x;
@@ -30,8 +30,8 @@ class Ghost {
         var mult = this.mul;
         var centerX = this._position.x;
         var centerY = this._position.y;
-        centerX -= 30;
-        centerY += 30;
+        centerX -= 15;
+        centerY += 15;
         ctx.beginPath();
         ctx.fillStyle = this.ghostColor;
         //ctx.moveTo(83, 116);
