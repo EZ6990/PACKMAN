@@ -11,15 +11,33 @@ class Ghost {
         this._position = new Object();
         this._position.x = x;
         this._position.y = y;
+        this._i = (_position.x - 15) / 30;
+        this._j = (_position.y - 15) / 30;
 
+    }
+    updatePositions() {
+        this._position.x = this._i * 30 + 15;
+        this._position.y = this._j * 30 + 15;
     }
     get position() {
-         return this._position;
+        return this._position;
     }
     set position(pos) {
-        this._position.x = pos;
-
+        this._position = pos;
     }
+    get i(i) {
+        return this._i;
+    }
+    get j(j) {
+        return this._j;
+    }
+    set i(i) {
+        this._i = i;
+    }
+    set j(j) {
+        this._j = j;
+    }
+
 
     locatedIn(x, y) {
         return x == this._position.x && y == this._position.y;
@@ -30,7 +48,7 @@ class Ghost {
         var centerY = this._position.y;
         centerX -= 15;
         centerY += 15;
-        context.clearRect(this._position.x-15,  this._position.y-15, this._position.x+15,  this._position.y+15); //clean board
+        context.clearRect(this._position.x - 15, this._position.y - 15, this._position.x + 15, this._position.y + 15); //clean board
         ctx.beginPath();
         ctx.fillStyle = this.ghostColor;
         //ctx.moveTo(83, 116);
@@ -100,4 +118,6 @@ class Ghost {
     moveTowards(x, y) {
 
     }
+
+
 }

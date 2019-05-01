@@ -46,27 +46,6 @@ function timeCountDown() {
     then = now;
 }
 
-function createGhost() {
-    ghosts = new Array();
-    for (var i = 0; i < numOfghosts; i++) {//change to input num
-        var g;
-        if (i === 0) {
-            g = new Ghost(getRandomColor(), 45, 45);//change to color of choosing
-            ghosts[i] = g;
-
-        }
-        else if (i === 1) {
-            g = new Ghost(getRandomColor(), 615, 45);//change to color of choosing
-            ghosts[i] = g;
-        }
-        else if (i === 2) {
-            g = new Ghost(getRandomColor(), 45, 615);//change to color of choosing
-            ghosts[i] = g;
-        }
-
-
-    }
-}
 
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
@@ -87,11 +66,29 @@ function Start1() {
         }
         count += "]\n"
     }
-   // console.log(count);
-   // console.log(board.length);
+    // console.log(count);
+    // console.log(board.length);
 
 }
+function createGhost() {
+    ghosts = new Array();
+    for (var i = 0; i < numOfghosts; i++) {//change to input num
+        var g;
+        if (i === 0) {
+            g = new Ghost(getRandomColor(), 45, 45);//change to color of choosing
+            ghosts[i] = g;
 
+        }
+        else if (i === 1) {
+            g = new Ghost(getRandomColor(), 615, 45);//change to color of choosing
+            ghosts[i] = g;
+        }
+        else if (i === 2) {
+            g = new Ghost(getRandomColor(), 45, 615);//change to color of choosing
+            ghosts[i] = g;
+        }
+    }
+}
 function Start() {
     $("#UserDetails").append("NAME: <label>" + CurrentUser.username + "</label>");
 
@@ -134,7 +131,7 @@ function startSound() {
 }
 
 function findRandomEmptyCell(board) {
-    if (typeof  empyCells === 'undefined') {
+    if (typeof empyCells === 'undefined') {
         empyCells = new Array();
         for (var k = 1; k < board.length - 1; k++) {
             for (var l = 1; l < board[0].length - 1; l++) {
@@ -169,26 +166,50 @@ function GetKeyPressed() {
         return 4;
     }
 }
+function compare(x, y) {
+    if (x === y)
+        return 0;
+    if (x > y)
+        return 1;
+    return -1;
+}
 
 /**unfinished logics of ghosts */
 function moveGhosts() {
+    var compI;
+    var compJ;
     ghosts.forEach(g => {
-        if (g.position.y - pacman.j > 0)
-            tryToMove();
-
+        compI = compare(g.i, pacman.i);
+        compJ = compare(g.j, pacman.j);
+        if (compI !== 0)
+            if (g.i - compI > 0 && g.i - compI < 21 && board[g.i - compI][g.j] !== 0)
+                g.i -= compI;
+            else if (g.j - compJ > 0 && g.j - compJ < 21 && board[g.i][g.j - compJ] !== 0)
+                g.j -= compJ;
+            else if (g.j + compJ > 0 && g.j + compJ < 21 && board[g.i][g.j + compJ] !== 0)
+                g.j += compJ;
+            else if (g.i + compI > 0 && g.i + compI < 21 && board[g.i + compI][g.j] !== 0)
+                g.i += compI;
 
     });
 }
 
-function tryToMove() {
-    
+
+
+function pacmanIsdead() {
+
+
 }
 
 function checkIfDead() {
+    ghosts.forEach(g => {
+        if (g.position.x === pacman.position.x && g.position.y === pacman.position.y)
+            return true;
+    });
     return false;
 }
-function drawGhosts(){
-    ghosts.forEach(g=>g.draw_ghost(context));
+function drawGhosts() {
+    ghosts.forEach(g => g.draw_ghost(context));
 
 }
 /**end unfinished logics */
@@ -299,8 +320,10 @@ function UpdatePosition() {
             pacman.direction = 1;
         }
     }
+
     pacman.updatePositions();
     if (checkIfDead()) {
+        pacmanIsdead(); //TODO
     }
     else {//not dead
         if (board[pacman.i][pacman.j] === 1.1) {
