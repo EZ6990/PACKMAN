@@ -14,14 +14,13 @@
     <script type="text/javascript" src="ghost.js"></script>
     <script type="text/javascript" src="logic.js"></script>
     <script type="text/javascript">
-       
-       function showPage(pageID){
-            console.log(pageID)
+        function showPage(pageID){
             $(".Content").css("display", "none");
             $("#"+pageID).css("display", "block");
         }
-
-
+        function showModal(pageID){
+            $("#"+pageID).modal({ backdrop: 'static', keyboard: true })
+        }
     </script>
 </head>
 <body>
@@ -31,42 +30,43 @@
                 <a onclick="showPage('Welcome')" class="active">Welcome</a>
                 <a onclick="showPage('Login')">Login</a>
                 <a onclick="showPage('Register')">Register</a>
-                <a onclick="showPage('About')">About</a>
-            </ul>
+                <a onclick="showModal('About')">About</a>
         </div>
     </nav>
-    <div class="center-block">
+    <div class="d-flex flex-wrap align-content-center center-block">
         <div class="Content" id="Welcome">
-            <h2 style="text-align: center;">Welcome</h2>
-            <button type="button" class="btn btn-default btn-block" onclick="showPage('Login')">Login</button>
-            <button type="button" class="btn btn-default btn-block" onclick="showPage('Register')">Register</button>
+                <h2 style="text-align: center;">Welcome</h2>
+                <button type="button" class="btn btn-default btn-block" onclick="showPage('Login')">Login</button>
+                <button type="button" class="btn btn-default btn-block" onclick="showPage('Register')">Register</button>
         </div>
         <div class="Content" id="Register">
-            <div class="jumbotron">
-                        <h2 class="text-center">Register</h2>
-                            <div class="input-group">
-                                <label><b>Username</b></label>
-                                <input class="mx-2" type="text" placeholder="Username" id="runame">
-                                <label><b>Password</b></label>
-                                <input class="mx-2" type="password" placeholder="******" id="rpsw">
-                            </div>
-                            <div class="form-group" >
-                                <label><b>First Name</b></label>
-                                <input class="form-control" type="text" id="rfn">
-                            </div>
-                            <div class="form-group">
-                                <label><b>Last Name</b></label>
-                                <input class="form-control" type="text" placeholder="Last Name" id="rln">
-                            </div>
-                            <div class="form-group" >
-                                <label><b>Email</b></label>
-                                <input class="form-control" type="email" placeholder="Email" id="remail">
-                            </div>
-                            <div class="form-group" >
-                                <label><b>Birthdate</b></label>
-                                <input class="form-control" type="date" placeholder="Birthdate" id="rbirth">
-                            </div>
-                <button type="button" class="btn btn-primary btn-block" onclick="register()">Login</button>
+            <div class="container">
+                <div class="card">
+                    <div class="card-header mb-3">
+                        <div class="card-title">
+                            <h2 class="text-center">Register</h2>
+                        </div>
+                    </div>
+                    <div class="card-content px-3 mb-3">
+                        <div class="input-group mb-3" >
+                            <input class="mx-2" type="text" placeholder="Username" id="runame">
+                            <input class="mx-2" type="password" placeholder="******" id="rpsw">
+                        </div>
+                        <div class="input-group mb-3" >
+                            <input class="mx-2" type="text" placeholder="First Name" id="rfn">
+                            <input class="mx-2" type="text" placeholder="Last Name" id="rln">
+                        </div>
+                        <div class="input-group mb-3" >
+                            <input class="mx-2 form-control" type="email" placeholder="Email" id="remail">
+                        </div>
+                        <div class="input-group mb-3" >
+                            <input class="mx-2 form-control" type="date" placeholder="Birthdate" id="rbirth">
+                        </div>
+                        <div class="input-group mb-3" >
+                            <button type="button" class="btn btn-primary btn-block" onclick="register()">Submit</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="Content" id="Login">
@@ -103,26 +103,27 @@
         <div class="Content" id="Settings">
 
         </div>
-        <div class="Content" id="About">
-
-    </div>
-    <div class="Content" id="Game">
+        <dialog class="modal fade hide" id="About">
+            <div class="modal-dialog"></div>
+            <p><i><b>Daniel Koyfman</b></i></p>
+            <p><i><b>Tal Malul</b></i></p>
+            <p>JQuery 4</p>
+            <p>css need more practice</p>
+        </dialog>
+        <div class="Content" id="Game">
             <audio id = "targetSound" preload = "auto">
                     <source src = "sounds/Power Bots Loop.mp3" type = "audio/mpeg"/>
             </audio>
             <div id="UserDetails">
                 
             </div>
-       SCORE:
-        <input id="lblScore" type="text"/>
-        <br/>
-        TIME:
-        <input id="lblTime" type="text"/>
-        <br/>
-        TRIES:
-        <label id="lbAttempts"></label>
-        <br/>
-        <canvas id="canvas" height="660" width="660"></canvas>
+            <div class="d-flex flex-wrap row" style="width: 660px">
+                <span class="flex-fill">SCORE: <label id="lblScore">0</label></span>
+                <span class="flex-fill">TIME: <label id="lblTime">0</label></span>
+                <span class="flex-fill">TRIES: <label id="lbAttempts">3</label></span>
+            </div>
+            <canvas id="canvas" height="660" width="660"></canvas>
+        </div>
     </div>
 </body>
 </html>
