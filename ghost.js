@@ -6,7 +6,7 @@ class Ghost {
     // var mult;
 
     constructor(color, x, y) {
-        this.mul = 0.5;
+        this.mul = 1;
         this.ghostColor = color;
         this._position = new Object();
         this._position.x = x;
@@ -14,7 +14,6 @@ class Ghost {
 
     }
     get position() {
-        console.log(score);
          return this._position;
     }
     set position(pos) {
@@ -26,12 +25,12 @@ class Ghost {
         return x == this._position.x && y == this._position.y;
     }
     draw_ghost(ctx) {
-        
         var mult = this.mul;
         var centerX = this._position.x;
         var centerY = this._position.y;
         centerX -= 15;
         centerY += 15;
+        context.clearRect(this._position.x-15,  this._position.y-15, this._position.x+15,  this._position.y+15); //clean board
         ctx.beginPath();
         ctx.fillStyle = this.ghostColor;
         //ctx.moveTo(83, 116);

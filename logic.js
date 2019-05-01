@@ -87,8 +87,8 @@ function Start1() {
         }
         count += "]\n"
     }
-    console.log(count);
-    console.log(board.length);
+   // console.log(count);
+   // console.log(board.length);
 
 }
 
@@ -129,7 +129,7 @@ function Start() {
 
 
 function startSound() {
-    console.log(sound_obj);
+    //console.log(sound_obj);
     sound_obj.play();
 }
 
@@ -181,13 +181,16 @@ function moveGhosts() {
 }
 
 function tryToMove() {
-
+    
 }
 
 function checkIfDead() {
     return false;
 }
+function drawGhosts(){
+    ghosts.forEach(g=>g.draw_ghost(context));
 
+}
 /**end unfinished logics */
 function Draw() {
     context.clearRect(0, 0, canvas.width, canvas.height); //clean board
@@ -200,9 +203,9 @@ function Draw() {
             var center = new Object();
             center.x = i * 30 + 15;
             center.y = j * 30 + 15;
-            if ((g = checkForGhost(center.x,  center.y)) != -1) {
-                ghosts[g].draw_ghost(context);
-            }
+            // if ((g = checkForGhost(center.x,  center.y)) != -1) {
+            //     ghosts[g].draw_ghost(context);
+            // }
 
             if (board[i][j] === 2) {
                 // context.beginPath();
@@ -237,6 +240,8 @@ function Draw() {
 
         }
     }
+    drawGhosts();
+
     // var RandX = Math.floor((Math.random() * 9) + 1);
     // var RandY = Math.floor((Math.random() * 9) + 1);
     // if (board[RandX][RandY] == 0) {

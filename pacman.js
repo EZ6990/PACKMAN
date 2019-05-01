@@ -34,7 +34,6 @@ class Pacman {
         this._position.y=this._j*30+15;
     }
     get position() {
-        console.log(score);
         return this._position;
     }
 
@@ -48,7 +47,7 @@ class Pacman {
     }
 
     set direction(dir) {
-        this._direction.x = dir;
+        this._direction= dir;
 
     }
 
