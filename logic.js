@@ -98,7 +98,7 @@ function Start() {
     var cnt = 350;
     food = 60;
     var food_remain = food;
-    numOfghosts = 1;
+    numOfghosts = 2;
     start_time = new Date();
     candyColor = ["black", "green", "red"];
 
@@ -121,7 +121,7 @@ function Start() {
     }, 100);
     then = Date.now();
     setInterval(timeCountDown, 1);
-    setInterval(moveGhosts, 1);
+    setInterval(moveGhosts, 100);
 }
 
 
