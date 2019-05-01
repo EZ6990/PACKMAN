@@ -35,7 +35,7 @@ div.Content:not(#Welcome){
     background-color: black;
 } */
 
-div.center-block{
+/* div.center-block{
     position: fixed;
     top: 50%;
     left: 50%;
@@ -52,12 +52,26 @@ div.center-block #Register{
     margin-top: -200px;
     margin-left: -100px;
 }
+
+div.center-block #Register{
+    margin-top: -200px;
+    margin-left: -100px;
+} */
+
+.center-block{
+    height: 100%;
+}
+
+.Content {
+    margin: auto;
+}
+
 canvas{
      border: 1px solid black;
 }
-#Register .input-group>.input-group-prepend {
+/* #Register .input-group>.input-group-prepend {
     flex: 0 0 10%;
 }
 .input-group .input-group-text {
     width: 100%;
-}
+} */
