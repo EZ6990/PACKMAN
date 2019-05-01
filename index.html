@@ -9,9 +9,9 @@
     <script type="text/javascript" src="login_service.js"></script>
     <script type="text/javascript" src="db.js"></script>
     <script type="text/javascript" src="register_service.js"></script>
-    <script type="text/javascript" src="ghost.js"></script>
     <script type="text/javascript" src="candy.js"></script>
     <script type="text/javascript" src="pacman.js"></script>
+    <script type="text/javascript" src="ghost.js"></script>
     <script type="text/javascript" src="logic.js"></script>
     <script type="text/javascript">
         function showPage(pageID){
@@ -117,16 +117,12 @@
             <div id="UserDetails">
                 
             </div>
-       SCORE:
-        <input id="lblScore" type="text"/>
-        <br/>
-        TIME:
-        <input id="lblTime" type="text"/>
-        <br/>
-        TRIES:
-        <label id="lbAttempts"></label>
-        <br/>
-        <canvas id="canvas" height="660" width="660"></canvas>
+            <div class="d-flex flex-wrap row" style="width: 660px">
+                <span class="flex-fill">SCORE: <label id="lblScore">0</label></span>
+                <span class="flex-fill">TIME: <label id="lblTime">0</label></span>
+                <span class="flex-fill">TRIES: <label id="lbAttempts">3</label></span>
+            </div>
+            <canvas id="canvas" height="660" width="660"></canvas>
         </div>
     </div>
 </body>
