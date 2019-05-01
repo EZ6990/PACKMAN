@@ -11,8 +11,8 @@ class Ghost {
         this._position = new Object();
         this._position.x = x;
         this._position.y = y;
-        this._i = (_position.x - 15) / 30;
-        this._j = (_position.y - 15) / 30;
+        this._i = (this._position.x - 15) / 30;
+        this._j = (this._position.y - 15) / 30;
 
     }
     updatePositions() {
@@ -25,10 +25,10 @@ class Ghost {
     set position(pos) {
         this._position = pos;
     }
-    get i(i) {
+    get i() {
         return this._i;
     }
-    get j(j) {
+    get j() {
         return this._j;
     }
     set i(i) {
