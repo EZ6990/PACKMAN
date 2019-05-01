@@ -48,7 +48,7 @@ class Ghost {
         var centerY = this._position.y;
         centerX -= 15;
         centerY += 15;
-        context.clearRect(this._position.x - 15, this._position.y - 15, this._position.x + 15, this._position.y + 15); //clean board
+        //context.clearRect(this._position.x - 15, this._position.y - 15, this._position.x + 15, this._position.y + 15); //clean board
         ctx.beginPath();
         ctx.fillStyle = this.ghostColor;
         //ctx.moveTo(83, 116);

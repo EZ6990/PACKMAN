@@ -181,16 +181,21 @@ function moveGhosts() {
     ghosts.forEach(g => {
         compI = compare(g.i, pacman.i);
         compJ = compare(g.j, pacman.j);
-        if (compI !== 0)
+        if (compI !== 0) {
             if (g.i - compI > 0 && g.i - compI < 21 && board[g.i - compI][g.j] !== 0)
                 g.i -= compI;
             else if (g.j - compJ > 0 && g.j - compJ < 21 && board[g.i][g.j - compJ] !== 0)
                 g.j -= compJ;
-            else if (g.j + compJ > 0 && g.j + compJ < 21 && board[g.i][g.j + compJ] !== 0)
-                g.j += compJ;
             else if (g.i + compI > 0 && g.i + compI < 21 && board[g.i + compI][g.j] !== 0)
                 g.i += compI;
+        } else {
+            if (g.j - compJ > 0 && g.j - compJ < 21 && board[g.i][g.j - compJ] !== 0)
+            g.j -= compJ;
+            else if (g.j + compJ > 0 && g.j + compJ < 21 && board[g.i][g.j + compJ] !== 0)
+                g.j += compJ;
 
+        }
+        g.updatePositions();
     });
 }
 
@@ -203,8 +208,10 @@ function pacmanIsdead() {
 
 function checkIfDead() {
     ghosts.forEach(g => {
-        if (g.position.x === pacman.position.x && g.position.y === pacman.position.y)
+        if (g.position.x === pacman.position.x && g.position.y === pacman.position.y) {
+            console.log("hoo");
             return true;
+        }
     });
     return false;
 }
@@ -342,7 +349,7 @@ function UpdatePosition() {
         if (score >= 20 && time_elapsed <= 10) {
             pac_color = "green";
         }
-        if (score >= 50) {
+        if (score >= 150) {
             window.clearInterval(interval);
             window.alert("Game completed");
         } else {
