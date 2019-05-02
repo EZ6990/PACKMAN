@@ -1,7 +1,7 @@
 /*javascript */
 
 var context, pacman, score, pac_color, start_time, time_elapsed, interval, attempts, counterR, then, timeLeft, r,
-    sound_obj, ghosts, numOfghosts, xToCenter, yToCenter, food, candyColor, empyCells;
+    sound_obj, ghosts, numOfghosts, xToCenter, yToCenter, timeInterval, food, candyColor, emptyCells,ghostInterval,mouthInterval;
 var board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
@@ -42,7 +42,7 @@ function timeCountDown() {
     timeLeft -= delta;
     if (timeLeft <= 0)
         timeLeft = 0;
-    lblTime.value = timeLeft / 1000;
+    $("#lblTime").text(timeLeft / 1000);
     then = now;
 }
 
@@ -93,7 +93,6 @@ function Start() {
     $("#UserDetails").append("NAME: <label>" + CurrentUser.username + "</label>");
 
     score = 0;
-    lbAttempts.innerText = attempts;
     // pac_color = "yellow";
     var cnt = 350;
     food = 60;
@@ -105,7 +104,6 @@ function Start() {
     createGhost();
     generateCandies(cnt, food_remain);
     generatePacman();
-
 
     keysDown = {};
     addEventListener("keydown", function (e) {
@@ -120,8 +118,8 @@ function Start() {
         r = Math.abs(Math.sin(++counterR)) * 15 / 100;
     }, 100);
     then = Date.now();
-    setInterval(timeCountDown, 1);
-    setInterval(moveGhosts, 100);
+    timeInterval=setInterval(timeCountDown, 1);
+   ghostInterval=setInterval(moveGhosts, 85);
 }
 
 
@@ -131,19 +129,19 @@ function startSound() {
 }
 
 function findRandomEmptyCell(board) {
-    if (typeof empyCells === 'undefined') {
-        empyCells = new Array();
+    if (typeof emptyCells === 'undefined') {
+        emptyCells = new Array();
         for (var k = 1; k < board.length - 1; k++) {
             for (var l = 1; l < board[0].length - 1; l++) {
                 if (board[k][l] === 1)
-                    empyCells.push([k, l]);
+                    emptyCells.push([k, l]);
             }
         }
     }
-    var ans = empyCells[Math.round(Math.random() * empyCells.length - 0.5)];
-    var index = empyCells.indexOf(ans);
+    var ans = emptyCells[Math.round(Math.random() * emptyCells.length - 0.5)];
+    var index = emptyCells.indexOf(ans);
     if (typeof index !== 'undefined') {
-        empyCells.splice(index, 1);
+        emptyCells.splice(index, 1);
     }
     return ans;
 
@@ -190,7 +188,7 @@ function moveGhosts() {
                 g.i += compI;
         } else {
             if (g.j - compJ > 0 && g.j - compJ < 21 && board[g.i][g.j - compJ] !== 0)
-            g.j -= compJ;
+                g.j -= compJ;
             else if (g.j + compJ > 0 && g.j + compJ < 21 && board[g.i][g.j + compJ] !== 0)
                 g.j += compJ;
 
@@ -200,19 +198,67 @@ function moveGhosts() {
 }
 
 
+function resetGhostPosition(){
+    let i=0;
+    ghosts.forEach(g => {
+        if(i===0) {
+            g.i = 1;
+            g.j = 1
+        }
+        else if(i===1) {
+            g.i = 1;
+            g.j = 21;
+        }
+        else if(i===2){
+            g.i=21;
+            g.j=1;
+        }
+        i++;
+        g.updatePositions();
+    });
 
-function pacmanIsdead() {
+}
+
+function resetPacmanPosition(){
+    var emptyCell = findRandomEmptyCell(board);
+    board[emptyCell[0]][emptyCell[1]] = 2;
+    pacman.i=emptyCell[0];
+    pacman.j=emptyCell[1];
+    pacman.direction=(Math.random() * 4) | 0 + 1;
+    pacman.updatePositions();
+    keysDown = {};
+
+}
+
+function  endGame(){
+    clearIntervals();
 
 
 }
 
-function checkIfDead() {
-    ghosts.forEach(g => {
-        if (g.position.x === pacman.position.x && g.position.y === pacman.position.y) {
-            console.log("hoo");
-            return true;
+function pacmanIsDead() {
+    if($("#lbAttempts").text()>0){
+        resetGhostPosition();
+        resetPacmanPosition();
+        attempts--;
+        $("#lbAttempts").text(attempts);
+        window.alert("Try Again");
+
+    }
+    else{
+        endGame();
+    }
+}
+
+function checkIfDead(){
+        for(let i=0;i<ghosts.length;i++) {
+            if (ghosts[i].i === pacman.i && ghosts[i].j === pacman.j) {
+               // window.clearInterval(interval);
+               // window.clearInterval(ghostInterval);
+                return true;
+            }
         }
-    });
+
     return false;
 }
 function drawGhosts() {
@@ -296,6 +342,13 @@ function checkForGhost(x, y) {
 
     return -1;
 }
+function  clearIntervals()
+{
+    window.clearInterval(interval);
+    window.clearInterval(mouthInterval);
+    window.clearInterval(timeInterval);
+    window.clearInterval(ghostInterval);
+}
 
 function UpdatePosition() {
     board[pacman.i][pacman.j] = 1;
@@ -330,7 +383,7 @@ function UpdatePosition() {
 
     pacman.updatePositions();
     if (checkIfDead()) {
-        pacmanIsdead(); //TODO
+        pacmanIsDead();
     }
     else {//not dead
         if (board[pacman.i][pacman.j] === 1.1) {
@@ -342,19 +395,20 @@ function UpdatePosition() {
         else if (board[pacman.i][pacman.j] === 1.3) {
             score += 25;
         }
-
+        $("#lblScore").text(score);
         board[pacman.i][pacman.j] = 2;
         var currentTime = new Date();
         time_elapsed = (currentTime - start_time) / 1000;
         if (score >= 20 && time_elapsed <= 10) {
             pac_color = "green";
         }
+    }
         if (score >= 150) {
-            window.clearInterval(interval);
+            clearIntervals();
             window.alert("Game completed");
         } else {
             Draw();
 
-        }
+
     }//not dead
 }
