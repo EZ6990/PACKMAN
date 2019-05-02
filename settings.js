@@ -2,6 +2,12 @@
 
 var controlKeys = controlDefaultKeys;
 
+$(document).on('show.bs.modal',"#Settings", function (e) {
+
+});
+$(document).on('hide.bs.modal',"#Settings", function (e) {
+
+});
 
 $(document).on('keydown',  function (e) {
     if($('#SetKeyBoard').is(':visible')) {
@@ -9,7 +15,6 @@ $(document).on('keydown',  function (e) {
         $('#keydata').text(controlKeys[direction]);
     }
 });
-
 
 
 function setKeyboardControlKey(direction){
