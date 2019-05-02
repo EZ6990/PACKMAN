@@ -35,28 +35,12 @@ div.Content:not(#Welcome){
     background-color: black;
 } */
 
-/* div.center-block{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -100px;;
+#Settings .input-group-prepend{
+    width: 25%;
 }
-
-div.center-block #Login{
-    margin-top: -50px;
-    margin-left: -100px;
+#Settings .input-group-prepend .input-group-text{
+    width: 100%;
 }
-
-div.center-block #Register{
-    margin-top: -200px;
-    margin-left: -100px;
-}
-
-div.center-block #Register{
-    margin-top: -200px;
-    margin-left: -100px;
-} */
 
 .center-block{
     height: 100%;
