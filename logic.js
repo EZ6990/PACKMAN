@@ -257,11 +257,15 @@ function resetPacmanPosition(){
 
 }
 
-function  endGame(){
+function  endGameLose(){
     clearIntervals();
-    $('#gameOver').modal('toggle');
+    $('#gameOverULose').modal('toggle');
 }
-
+function endGameWin()
+{
+    clearIntervals();
+    $('#gameOverUWin').modal('toggle');
+}
 function pacmanIsDead() {
     if($("#lbAttempts").text()>0){
         resetGhostPosition();
@@ -271,7 +275,7 @@ function pacmanIsDead() {
 
     }
     else{
-        endGame();
+        endGameLose();
     }
 }
 
@@ -429,8 +433,7 @@ function UpdatePosition() {
         }
     }
     if (score >= 150) {
-        clearIntervals();
-        window.alert("Game completed");
+       endGameWin();
     } else {
         Draw();
 
