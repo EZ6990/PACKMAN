@@ -1,6 +1,6 @@
 /*javascript */
 
-var context, pacman, score, pac_color, start_time, time_elapsed, interval, attempts, counterR, then, timeLeft, r,cnadyInterval,
+var context, pacman, score, pac_color, start_time, time_elapsed, interval, attempts, counterR, then, timeLeft, r,candyInterval,
     sound_obj, ghosts, numOfghosts, xToCenter, yToCenter, timeInterval, food, candyColor, emptyCells,ghostInterval,mouthInterval,mCandy;
 var board;
 // = [
@@ -131,6 +131,7 @@ function Start() {
     start_time = new Date();
     candyColor = ["black", "green", "red"];
     $("#lbAttempts").text(3);
+    $("#lblTime").text(60);
     createGhost();
     generateCandies(cnt, food_remain);
     generatePacman();
@@ -143,19 +144,21 @@ function Start() {
         keysDown[e.code] = false;
     }, false);
     sound_obj.addEventListener("canplaythrough", startSound, false);
-    interval = setInterval(UpdatePosition, 100);
-    mouthInterval = setInterval(function () {
-        r = Math.abs(Math.sin(++counterR)) * 15 / 100;
-    }, 100);
-    then = Date.now();
-    timeInterval=setInterval(timeCountDown, 1);
-    ghostInterval=setInterval(moveGhosts, 150);
-    var cell=findRandomEmptyCell(board);
+    createIntervals();
+    let cell=findRandomEmptyCell(board);
     mCandy=new MCandy(cell[0]*30+15,cell[1]*30+15);
-    cnadyInterval=setInterval(mCandy.updatePosition(board),100);
 }
 
-
+function updateR(){
+    r = Math.abs(Math.sin(++counterR)) * 15 / 100;
+}
+function updateCandy(){
+    mCandy.updatePosition(board,context);
+    if(mCandy.atPostion(pacman.i,pacman.j)) {
+        score += 50;
+        window.clearInterval(candyInterval);
+    }
+}
 function startSound() {
     //console.log(sound_obj);
     sound_obj.play();
@@ -263,7 +266,7 @@ function resetPacmanPosition(){
 
 }
 
-function  endGameLose(){
+function endGameLose(){
     clearIntervals();
     $('#gameOverULose').modal('toggle');
 }
@@ -273,15 +276,18 @@ function endGameWin()
     $('#gameOverUWin').modal('toggle');
 }
 function pacmanIsDead() {
-    if($("#lbAttempts").text()>0){
+    if($("#lbAttempts").text()>0) {
         resetGhostPosition();
         resetPacmanPosition();
-        $("#lbAttempts").text(($("#lbAttempts").text()-1));
-        score-=10;
+        $("#lbAttempts").text(($("#lbAttempts").text() - 1));
+        score -= 10;
+        clearIntervals();
         window.alert("Try Again");
+        createIntervals();
 
     }
-    else{
+
+    else {
         endGameLose();
     }
 }
@@ -376,12 +382,21 @@ function checkForGhost(x, y) {
 
     return -1;
 }
+function  createIntervals() {
+    then = Date.now();
+    interval = setInterval(UpdatePosition, 100);
+    mouthInterval = setInterval(updateR, 100);
+    timeInterval=setInterval(timeCountDown, 1);
+    ghostInterval=setInterval(moveGhosts, 150);
+    candyInterval=setInterval(updateCandy,100);
+}
 function  clearIntervals()
 {
     window.clearInterval(interval);
     window.clearInterval(mouthInterval);
     window.clearInterval(timeInterval);
     window.clearInterval(ghostInterval);
+    window.clearInterval(candyInterval);
 }
 
 function UpdatePosition() {
@@ -438,7 +453,7 @@ function UpdatePosition() {
         }
     }
     if (score >= 150) {
-       endGameWin();
+        endGameWin();
     } else {
         Draw();
 

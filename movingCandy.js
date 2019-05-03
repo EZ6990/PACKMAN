@@ -36,7 +36,7 @@ class MCandy {
         this._j = (x - 15) / 30;
         this._isEaten=false;
         this._candy=new Image();
-        this._candy.src="images/50pts.png";
+        this._candy.src="images//50pts.png";
     }
 
     updatePositions() {
@@ -55,9 +55,7 @@ class MCandy {
 
 
     draw(ctx) {
-        this._candy.onload = function() {
-            ctx.drawImage(this._candy.src, this._position.x, this._position.y,30,30);
-        }
+            ctx.drawImage(this._candy, this._position.x-15, this._position.y-15,30,30);
     }
 
 
@@ -81,6 +79,9 @@ class MCandy {
             arr.push([this._i, this._j + 1]);
         return arr;
 
+    }
+    atPostion(i,j){
+        return this._i===i && this._j===j;
     }
 
 }
