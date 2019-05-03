@@ -1,7 +1,7 @@
 /*javascript */
 
-var context, pacman, score, pac_color, start_time, time_elapsed, interval, attempts, counterR, then, timeLeft, r,
-    sound_obj, ghosts, numOfghosts, xToCenter, yToCenter, timeInterval, food, candyColor, emptyCells,ghostInterval,mouthInterval;
+var context, pacman, score, pac_color, start_time, time_elapsed, interval, attempts, counterR, then, timeLeft, r,cnadyInterval,
+    sound_obj, ghosts, numOfghosts, xToCenter, yToCenter, timeInterval, food, candyColor, emptyCells,ghostInterval,mouthInterval,mCandy;
 var board;
 // = [
 //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -118,13 +118,16 @@ function Start() {
     if($("#UserDetails").children().length == 0  ) {
         $("#UserDetails").append("NAME: <label>" + CurrentUser.username + "</label>");
     }
+
     score = 0;
+
     // pac_color = "yellow";
-    var cnt = 350;
+    var cnt = 360;
     board=getBoard();
     food = 60;
     var food_remain = food;
-    numOfghosts = 2;
+    emptyCells=null;
+    numOfghosts = 3;
     start_time = new Date();
     candyColor = ["black", "green", "red"];
     $("#lbAttempts").text(3);
@@ -146,7 +149,10 @@ function Start() {
     }, 100);
     then = Date.now();
     timeInterval=setInterval(timeCountDown, 1);
-    ghostInterval=setInterval(moveGhosts, 85);
+    ghostInterval=setInterval(moveGhosts, 150);
+    var cell=findRandomEmptyCell(board);
+    mCandy=new MCandy(cell[0]*30+15,cell[1]*30+15);
+    cnadyInterval=setInterval(mCandy.updatePosition(board),100);
 }
 
 
@@ -156,7 +162,7 @@ function startSound() {
 }
 
 function findRandomEmptyCell(board) {
-    if (typeof emptyCells === 'undefined') {
+    if (emptyCells === null) {
         emptyCells = new Array();
         for (var k = 1; k < board.length - 1; k++) {
             for (var l = 1; l < board[0].length - 1; l++) {
@@ -271,6 +277,7 @@ function pacmanIsDead() {
         resetGhostPosition();
         resetPacmanPosition();
         $("#lbAttempts").text(($("#lbAttempts").text()-1));
+        score-=10;
         window.alert("Try Again");
 
     }
@@ -299,8 +306,6 @@ function Draw() {
     context.clearRect(0, 0, canvas.width, canvas.height); //clean board
     lblScore.value = score;
     // lblTime.value = time_elapsed;
-    var specialCandy = Math.random();
-    var g = 0;
     for (var i = 0; i < board.length; i++) {
         for (var j = 0; j < board[0].length; j++) {
             var center = new Object();
