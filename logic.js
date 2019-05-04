@@ -3,30 +3,6 @@
 var context, pacman, score, pac_color, start_time, time_elapsed, interval, attempts, counterR, then, timeLeft, r,candyInterval,
     sound_obj, ghosts, numOfghosts, xToCenter, yToCenter, timeInterval, food, candyColor, emptyCells,ghostInterval,mouthInterval,mCandy,food_remain;
 var board;
-// = [
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-//     [0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-//     [0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-//     [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-//     [0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-//     [0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0],
-//     [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-//     [0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-//     [0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0],
-//     [0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0],
-//     [0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0],
-//     [0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-//     [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-// ];
 function getBoard(){
     return [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -130,20 +106,20 @@ function Start() {
 
     score = 0;
 
-    // pac_color = "yellow";
     var cnt = 360;
     board=getBoard();
     food = 60;
-     food_remain = food;
+    food_remain = food;
     emptyCells=null;
     numOfghosts = 3;
     start_time = new Date();
     candyColor = ["black", "green", "red"];
     $("#lbAttempts").text(3);
-   $("#lblTime").text(10);
+    $("#lblTime").text(10);
     timeLeft= $("#lblTime").text()*1000;
     createGhost();
     generateCandies(cnt, food);
+    generateTimeCandy();
     generatePacman();
 
     keysDown = {};
@@ -242,27 +218,11 @@ function moveGhosts() {
     });
 }
 
-
-function resetGhostPosition(){
-    let i=0;
-    ghosts.forEach(g => {
-        if(i===0) {
-            g.i = 1;
-            g.j = 1
-        }
-        else if(i===1) {
-            g.i = 1;
-            g.j = 21;
-        }
-        else if(i===2){
-            g.i=21;
-            g.j=1;
-        }
-        i++;
-        g.updatePositions();
-    });
-
+function generateTimeCandy(){
+    var emptyCell = findRandomEmptyCell(board);
+    board[emptyCell[0]][emptyCell[1]] = 2.1;
 }
+
 
 function resetPacmanPosition(){
     var emptyCell = findRandomEmptyCell(board);
@@ -290,8 +250,6 @@ function pacmanIsDead() {
         clearIntervals();
         window.alert("Try Again");
         createIntervals();
-        //   createIntervals();
-
     }
 
     else {
@@ -302,8 +260,6 @@ function pacmanIsDead() {
 function checkIfDead(){
     for(let i=0;i<ghosts.length;i++) {
         if (ghosts[i].i === pacman.i && ghosts[i].j === pacman.j) {
-            // window.clearInterval(interval);
-            // window.clearInterval(ghostInterval);
             return true;
         }
     }
@@ -324,70 +280,41 @@ function Draw() {
             var center = new Object();
             center.x = i * 30 + 15;
             center.y = j * 30 + 15;
-            // if ((g = checkForGhost(center.x,  center.y)) != -1) {
-            //     ghosts[g].draw_ghost(context);
-            // }
 
             if (board[i][j] === 2) {
-                // context.beginPath();
-                // context.arc(center.x, center.y, 30, (0.15 - r) * Math.PI + (pacman.direction - 1) * Math.PI / 2, (1.85 + r) * Math.PI + (pacman.direction - 1) * Math.PI / 2); // half circle
-                // context.lineTo(center.x, center.y);
-                // context.fillStyle = pac_color; //color
-                // context.fill();
-                // context.beginPath();
-                // context.arc(center.x + ((1 - pacman.direction) * (pacman.direction % 2) + 1) * (15 - (pacman.direction % 2) * 10), center.y - ((pacman.direction - 4) * ((pacman.direction + 1) % 2) + 1) * (15 - ((pacman.direction + 1) % 2) * 10), 5, 0, 2 * Math.PI); // circle
-                // context.fillStyle = "black"; //color
-                // context.fill();
+
                 pacman.draw(context);
 
             } else if (board[i][j] > 1 && board[i][j] < 2) {
                 drawCandy(board[i][j] * 10 - 11, center.x, center.y);
 
             }
+            else if( board[i][j] === 2.1){
+                drawTimeCandy(i,j);
+            }
 
             else if (board[i][j] === 0) {
-                context.beginPath();
-                context.rect(center.x - 15, center.y - 15, 30, 30);
-                context.fillStyle = "grey"; //color
-                context.fill();
+                drawWall(center.x,center.y);
             }
-            // else if (board[i][j] === 5) {
-            //     context.beginPath();
-            //     context.arc(center.x, center.y, 25, 0, 2 * Math.PI); // circle
-            //     context.fillStyle = "green"; //color
-            //     context.fill();
-            // }
+
 
 
         }
     }
     drawGhosts();
 
-    // var RandX = Math.floor((Math.random() * 9) + 1);
-    // var RandY = Math.floor((Math.random() * 9) + 1);
-    // if (board[RandX][RandY] == 0) {
-    //     var specialCandy = Math.random();
-    //     if (specialCandy < 0.05) {
-    //         center.x = RandX * 60 + 30;
-    //         center.y = RandY * 60 + 30;
-    //         context.beginPath();
-    //         context.arc(center.x, center.y, 25, 0, 2 * Math.PI); // circle
-    //         context.fillStyle = "green"; //color
-    //         context.fill();
-    //         board[RandX][RandY] = 5;
-    //     }
-    // }
+
 }
-
-function checkForGhost(x, y) {
-
-    for (var i = 0; i < ghosts.length; i++) {
-        if (ghosts[i].locatedIn(x, y)) {
-            return i;
-        }
-    }
-
-    return -1;
+function drawWall(x,y){
+    context.beginPath();
+    context.rect(x - 15, y - 15, 30, 30);
+    context.fillStyle = "grey"; //color
+    context.fill();
+}
+function drawTimeCandy(i,j){
+    let candy =new Image();
+     candy.src="images//time.png";
+    context.drawImage(candy, i*30, j*30,30,30);
 }
 function  createIntervals() {
     then = Date.now();
@@ -454,6 +381,10 @@ function UpdatePosition() {
             score += 25;
             food_remain--;
         }
+        else if (board[pacman.i][pacman.j] === 2.1)
+        {
+            timeLeft+=10000;
+        }
         $("#lblScore").text(score);
         board[pacman.i][pacman.j] = 2;
         var currentTime = new Date();
@@ -464,7 +395,7 @@ function UpdatePosition() {
     }
     if (  food_remain <= 0) {
         let msg=
-        endGame("we have a winner!!!!");
+            endGame("we have a winner!!!!");
     } else {
         Draw();
 
