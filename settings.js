@@ -52,6 +52,7 @@ $(document).on('hide.bs.modal',"#Settings", function (e) {
     UserSettings['MovmentSettings']['Down'] = $("#settings_move_down").val();
     UserSettings['MovmentSettings']['Left'] = $("#settings_move_left").val();
     UserSettings['MovmentSettings']['Right'] = $("#settings_move_right").val();
+
 });
 
 $(document).on('keydown',  function (e) {

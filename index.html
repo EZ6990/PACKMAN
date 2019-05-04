@@ -1,12 +1,14 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="pacman.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="bootstrap-colorpicker.css">
+    <link rel="stylesheet" type="text/css" href="pacman.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="bootstrap-colorpicker.min.js"></script>
     <script type="text/javascript" src="login_service.js"></script>
     <script type="text/javascript" src="db.js"></script>
     <script type="text/javascript" src="register_service.js"></script>
@@ -17,6 +19,10 @@
     <script type="text/javascript" src="settings.js"></script>
     <script type="text/javascript" src="movingCandy.js"></script>
     <script type="text/javascript">
+    
+        $(document).ready(function () {
+            $('#5-points-color, #15-points-color, #25-points-color').colorpicker();
+        });
 
         $(document).on('keydown',  function (e) {
             if($('#About').is(':visible')) {
@@ -44,7 +50,7 @@
         <a onclick="showPage('Login')">Login</a>
         <a onclick="showPage('Register')">Register</a>
         <a onclick="showModal('About')">About</a>
-        <a onclick="showModal('Settings')">Settings</a>
+        <a onclick="$('#Settings').modal({ backdrop: 'static', keyboard: false});">Settings</a>
     </div>
 </nav>
 <div class="d-flex flex-wrap align-content-center center-block">
@@ -183,6 +189,27 @@
                                 <button class="btn btn-outline-primary" type="button"><i class="fas fa-coins"></i></button>
                             </div>
                         </div>
+                        <div id="5-points-color" class="input-group mt-3 d-flex coin-color-picker">
+                            <input type="text" value="#F08080" style="display:none;">
+                            <div class="input-group-prepend coin-color-picker flex-fill">
+                                <span class="input-group-text">5 Points</span>
+                                <span class="input-group-text colorpicker-input-addon justify-content-center"><i></i></span>
+                            </div>
+                        </div>
+                        <div id="15-points-color" class="input-group mt-3 d-flex coin-color-picker" title="Using input value">
+                            <input type="text" value="#4169E1" style="display:none;"/>
+                            <div class="input-group-prepend coin-color-picker flex-fill">
+                                <span class="input-group-text">15 Points</span>
+                                <span class="input-group-text colorpicker-input-addon justify-content-center"><i></i></span>
+                            </div>
+                        </div>
+                        <div id="25-points-color" class="input-group mt-3 d-flex coin-color-picker" title="Using input value">
+                            <input type="text" value="#38a677" style="display:none;"/>
+                            <div class="input-group-prepend flex-fill">
+                                <span class="input-group-text">25 Points</span>
+                                <span class="input-group-text colorpicker-input-addon justify-content-center"><i></i></span>
+                            </div>
+                        </div>
                         <div class="input-group mt-3" >
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Time Limit</span>
@@ -195,7 +222,7 @@
                     </div>
                 </form>
                 <div class="modal-footer mt-3">
-                    <button type="button" class="btn btn-primary btn-block" onclick="">Apply</button>
+                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Apply</button>
                 </div>
             </div>
         </div>
