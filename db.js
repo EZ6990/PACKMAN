@@ -3,8 +3,19 @@
 var registerd_users = [new User("a","a","a_fname","a_lname","a_email","a_birthdate")];
 var DefaultControlKeys = {Up:'ArrowUp',Down:'ArrowDown',Left:'ArrowLeft',Right:'ArrowRight'}
 var DefaultNumberOfMonsters = 3;
-var DefaultMonsterColors = ["#F08080","#4169E1","#38a677"];
-var DefaultSettings = {MovmentSettings:DefaultControlKeys};
+var DefaultNumberOfCoins = 60;
+var DefaultCoinsColors = ["#F08080","#4169E1","#38a677"];
+var DefalutGameTime = 60;
+
+var DefaultSettings = {
+                        MovmentSettings:DefaultControlKeys,
+                        NumberOfMonsters:DefaultNumberOfMonsters,
+                        GameTime:DefalutGameTime,
+                        NumberOfCoins:DefaultNumberOfCoins,
+                        CoinsColors:DefaultCoinsColors
+                    };
+
+
 function getUserDetail(uname,pass){
     for (i = 0; i< registerd_users.length; i++){
         if (registerd_users[i].username == uname && registerd_users[i].password == pass)

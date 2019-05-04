@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <div class="input-group mb-3" >
-                            <div class="my-error-input" style="width: 100%;padding-right: 15px;">
+                                <div class="my-error-input" style="width: 100%;padding-right: 15px;">
                                 <input class="mx-2 form-control" type="email" placeholder="Email" id="remail" name="email">
                             </div>
                         </div>
@@ -148,7 +148,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Move Up</span>
                             </div>
-                            <input id="settings_move_up" type="text" class="form-control" onclick="setKeyboardControlKey('Up')" onkeydown="return false; "name="keyup">
+                            <input id="settings_move_up" type="text" class="form-control" onclick="setKeyboardControlKey('Up')" onkeydown="return false;" name="keyup">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-primary" type="button" onclick="setKeyboardControlKey('Up')"><i class="far fa-keyboard"></i></button>
                             </div>
@@ -184,7 +184,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Coins</span>
                             </div>
-                            <input type="text" class="form-control" onclick="" onkeydown="return false;">
+                            <input id="number-of-coins" type="number" min="50" max="90" step="1" class="form-control" name="numberofcoins" required/>
                             <div class="input-group-append">
                                 <button class="btn btn-outline-primary" type="button"><i class="fas fa-coins"></i></button>
                             </div>
@@ -219,6 +219,8 @@
                                 <button class="btn btn-outline-primary" type="button"><i class="fas fa-stopwatch"></i></button>
                             </div>
                         </div>
+                    </form>
+                </div>
                         <div class="input-group mt-3" >
                             <div class="input-group-prepend">
                                   <span class="input-group-text">Select Monsters </span>
@@ -312,21 +314,21 @@
                 </div>
             </div>
         </div>
-        <!--        <div class="modal fade hide" id="gameOverUWin">-->
-        <!--            <div class="modal-dialog">-->
-        <!--                <div class="modal-content">-->
-        <!--                    <div class="modal-header">-->
-        <!--                        <h4 class="modal-title" id="#hYouWin"></h4>-->
-        <!--                    </div>-->
-        <!--                    <div class="modal-body">-->
-        <!--                        <div class="input-group" >-->
-        <!--                            <button type="button" class="btn btn-primary btn-block" onclick="Start()" data-dismiss="modal">Again!</button>-->
-        <!--                            <button type="button" class="btn btn-primary btn-block" onclick="showPage('Login')" data-dismiss="modal">Exit</button>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
+<!--        <div class="modal fade hide" id="gameOverUWin">-->
+<!--            <div class="modal-dialog">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <h4 class="modal-title" id="#hYouWin"></h4>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        <div class="input-group" >-->
+<!--                            <button type="button" class="btn btn-primary btn-block" onclick="Start()" data-dismiss="modal">Again!</button>-->
+<!--                            <button type="button" class="btn btn-primary btn-block" onclick="showPage('Login')" data-dismiss="modal">Exit</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
         <canvas id="canvas" height="660" width="660"></canvas>
 
     </div>

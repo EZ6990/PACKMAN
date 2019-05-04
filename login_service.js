@@ -46,9 +46,8 @@ function Login(){
 
     CurrentUser = getUserDetail(Username,Password)
     if (CurrentUser != undefined){
-        $("#Game").css("display", "block");
         $("#Login").css("display", "none");
-        Start();
+        $('#Settings').modal({ backdrop: 'static', keyboard: false});
     }
     else{
         $("#uname").val("");
