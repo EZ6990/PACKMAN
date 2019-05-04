@@ -1,9 +1,4 @@
 class Ghost {
-    // var position = new Object();
-    // position.x = 300;
-    // position.y = 300;
-    // var ghostColor;
-    // var mult;
 
     constructor(color, x, y) {
         this.mul = 1;
@@ -39,9 +34,6 @@ class Ghost {
     }
 
 
-    locatedIn(x, y) {
-        return x == this._position.x && y == this._position.y;
-    }
     draw_ghost(ctx) {
         var mult = this.mul;
         var centerX = this._position.x;
@@ -115,9 +107,24 @@ class Ghost {
         ctx.fill();
     }
 
-    moveTowards(x, y) {
-
-    }
-
+}
+function resetGhostPosition(){
+    let i=0;
+    ghosts.forEach(g => {
+        if(i===0) {
+            g.i = 1;
+            g.j = 1
+        }
+        else if(i===1) {
+            g.i = 1;
+            g.j = 20;
+        }
+        else if(i===2){
+            g.i=20;
+            g.j=1;
+        }
+        i++;
+        g.updatePositions();
+    });
 
 }
