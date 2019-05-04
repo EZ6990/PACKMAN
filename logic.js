@@ -1,7 +1,7 @@
 /*javascript */
 
 var context, pacman, score, pac_color, start_time, time_elapsed, interval, attempts, counterR, then, timeLeft, r,candyInterval,
-    sound_obj, ghosts, numOfghosts, xToCenter, yToCenter, timeInterval, food, candyColor, emptyCells,ghostInterval,mouthInterval,mCandy;
+    sound_obj, ghosts, numOfghosts, xToCenter, yToCenter, timeInterval, food, candyColor, emptyCells,ghostInterval,mouthInterval,mCandy,food_remain;
 var board;
 // = [
 //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -57,16 +57,25 @@ $(document).ready(function () {
     context = canvas.getContext("2d");
     sound_obj = document.getElementById("targetSound");
     counterR = 0;
-    timeLeft = 60000;
+    //timeLeft = 10000;
     r = 0;
 });
 
 function timeCountDown() {
-    var now = Date.now();
-    var delta = now - then;
+    let now = Date.now();
+    let delta = now - then;
     timeLeft -= delta;
-    if (timeLeft <= 0)
+    if (timeLeft <= 0) {
         timeLeft = 0;
+        $("#lblTime").text(timeLeft);
+        let msg = " You can do better\n your score:";
+        if (score <= 150)
+            endGame(msg + score);
+        else {
+            msg="we have a winner!!!!"
+            endGame(msg);
+        }
+    }
     $("#lblTime").text(timeLeft / 1000);
     then = now;
 }
@@ -125,15 +134,16 @@ function Start() {
     var cnt = 360;
     board=getBoard();
     food = 60;
-    var food_remain = food;
+     food_remain = food;
     emptyCells=null;
     numOfghosts = 3;
     start_time = new Date();
     candyColor = ["black", "green", "red"];
     $("#lbAttempts").text(3);
-    $("#lblTime").text(60);
+   $("#lblTime").text(10);
+    timeLeft= $("#lblTime").text()*1000;
     createGhost();
-    generateCandies(cnt, food_remain);
+    generateCandies(cnt, food);
     generatePacman();
 
     keysDown = {};
@@ -144,9 +154,9 @@ function Start() {
         keysDown[e.code] = false;
     }, false);
     sound_obj.addEventListener("canplaythrough", startSound, false);
-    createIntervals();
     let cell=findRandomEmptyCell(board);
     mCandy=new MCandy(cell[0]*30+15,cell[1]*30+15);
+    createIntervals();
 }
 
 function updateR(){
@@ -180,7 +190,6 @@ function findRandomEmptyCell(board) {
         emptyCells.splice(index, 1);
     }
     return ans;
-
 }
 
 /**
@@ -266,15 +275,12 @@ function resetPacmanPosition(){
 
 }
 
-function endGameLose(){
+function endGame(msg){
     clearIntervals();
-    $('#gameOverULose').modal('toggle');
+    $("#hGameOver").text(msg);
+    $('#gameOver').modal('toggle');
 }
-function endGameWin()
-{
-    clearIntervals();
-    $('#gameOverUWin').modal('toggle');
-}
+
 function pacmanIsDead() {
     if($("#lbAttempts").text()>0) {
         resetGhostPosition();
@@ -284,11 +290,12 @@ function pacmanIsDead() {
         clearIntervals();
         window.alert("Try Again");
         createIntervals();
+        //   createIntervals();
 
     }
 
     else {
-        endGameLose();
+        endGame("You Lost!");
     }
 }
 
@@ -437,12 +444,15 @@ function UpdatePosition() {
     else {//not dead
         if (board[pacman.i][pacman.j] === 1.1) {
             score += 5;
+            food_remain--;
         }
         else if (board[pacman.i][pacman.j] === 1.2) {
             score += 15;
+            food_remain--;
         }
         else if (board[pacman.i][pacman.j] === 1.3) {
             score += 25;
+            food_remain--;
         }
         $("#lblScore").text(score);
         board[pacman.i][pacman.j] = 2;
@@ -452,8 +462,9 @@ function UpdatePosition() {
             pac_color = "green";
         }
     }
-    if (score >= 150) {
-        endGameWin();
+    if (  food_remain <= 0) {
+        let msg=
+        endGame("we have a winner!!!!");
     } else {
         Draw();
 

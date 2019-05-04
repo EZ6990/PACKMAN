@@ -223,36 +223,36 @@
             <span class="flex-fill">TIME: <label id="lblTime">60</label></span>
             <span class="flex-fill">TRIES: <label id="lbAttempts">3</label></span>
         </div>
-        <div class="modal fade hide" id="gameOverULose">
+        <div class="modal fade hide" id="gameOver">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Game Over, You Lose</h4>
+                        <h4 class="modal-title" id="hGameOver"></h4>
                     </div>
                     <div class="modal-body">
                         <div class="input-group" >
-                            <button type="button" class="btn btn-primary btn-block" onclick="Start()" data-dismiss="modal">Retry</button>
+                            <button type="button" class="btn btn-primary btn-block" onclick="Start()" data-dismiss="modal">Play Again</button>
                             <button type="button" class="btn btn-primary btn-block" onclick="showPage('Login')" data-dismiss="modal">Exit</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade hide" id="gameOverUWin">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Game Over, You Win</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="input-group" >
-                            <button type="button" class="btn btn-primary btn-block" onclick="Start()" data-dismiss="modal">Again!</button>
-                            <button type="button" class="btn btn-primary btn-block" onclick="showPage('Login')" data-dismiss="modal">Exit</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--        <div class="modal fade hide" id="gameOverUWin">-->
+<!--            <div class="modal-dialog">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <h4 class="modal-title" id="#hYouWin"></h4>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        <div class="input-group" >-->
+<!--                            <button type="button" class="btn btn-primary btn-block" onclick="Start()" data-dismiss="modal">Again!</button>-->
+<!--                            <button type="button" class="btn btn-primary btn-block" onclick="showPage('Login')" data-dismiss="modal">Exit</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
         <canvas id="canvas" height="660" width="660"></canvas>
 
     </div>
