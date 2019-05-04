@@ -32,6 +32,17 @@ $(document).ready(function () {
                 required: true,
                 uniqKey: ['settings_move_down','settings_move_left','settings_move_up']
            },
+           keyright: {
+                required: true,
+                uniqKey: ['settings_move_down','settings_move_left','settings_move_up']
+            },
+            numberofcoins: {
+                required: true,
+                number: true,
+                min:50,
+                max:90,
+                step:1
+            }
         }
     });
 });
@@ -42,16 +53,30 @@ jQuery.validator.addMethod("uniqKey", function(value, element,param) {
 var UserSettings = DefaultSettings;
 var movmentSet = '';
 $(document).on('show.bs.modal',"#Settings", function (e) {
+
     $("#settings_move_up").val(UserSettings['MovmentSettings']['Up']);
     $("#settings_move_down").val(UserSettings['MovmentSettings']['Down']);
     $("#settings_move_left").val(UserSettings['MovmentSettings']['Left']);
     $("#settings_move_right").val(UserSettings['MovmentSettings']['Right']);
+
+    $("#5-points-color input").val(UserSettings['CoinsColors'][0]);
+    $("#15-points-color input").val(UserSettings['CoinsColors'][1]);
+    $("#25-points-color input").val(UserSettings['CoinsColors'][2]);
+
+    $("#number-of-coins").val(UserSettings['NumberOfCoins']);
+    
 });
 $(document).on('hide.bs.modal',"#Settings", function (e) {
     UserSettings['MovmentSettings']['Up'] = $("#settings_move_up").val();
     UserSettings['MovmentSettings']['Down'] = $("#settings_move_down").val();
     UserSettings['MovmentSettings']['Left'] = $("#settings_move_left").val();
     UserSettings['MovmentSettings']['Right'] = $("#settings_move_right").val();
+
+    UserSettings['CoinsColors'][0] = $("#5-points-color input").val();
+    UserSettings['CoinsColors'][1] = $("#15-points-color input").val();
+    UserSettings['CoinsColors'][2] = $("#25-points-color input").val();
+
+    UserSettings['NumberOfCoins'] = $("#number-of-coins").val();
 
 });
 

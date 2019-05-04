@@ -3,7 +3,7 @@
 var registerd_users = [new User("a","a","a_fname","a_lname","a_email","a_birthdate")];
 var DefaultControlKeys = {Up:'ArrowUp',Down:'ArrowDown',Left:'ArrowLeft',Right:'ArrowRight'}
 var DefaultNumberOfMonsters = 3;
-var DefaultNumberOfCoins = 90;
+var DefaultNumberOfCoins = 60;
 var DefaultCoinsColors = ["#F08080","#4169E1","#38a677"];
 var DefalutGameTime = 60;
 
