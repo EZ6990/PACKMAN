@@ -1,78 +1,62 @@
 
-
-
+$(document).ready(function () {
+    $("#register_form").validate({
+        errorClass: "my-error-class",
+        validClass: "my-valid-element",
+        highlight: function(element) {
+            $(element).removeClass('my-valid-element');
+            $(element).addClass('my-error-element');
+        },
+        unhighlight: function(element) {
+            $(element).removeClass('my-error-element');
+            $(element).addClass('my-valid-element');
+        },
+        errorElement: 'span',
+        rules: {
+            username: {
+                required: true
+            },
+            password: {
+                required: true,
+                acceptPassword: true,
+                minlength: 8
+            },
+            firstname: {
+                required: true,
+                accept:'[a-zA-Z]+'
+                
+            },
+            lastname: {
+                required: true,
+                accept:'[a-zA-Z]+'
+            },
+            email: {
+                required: true,
+                email: true,
+            },
+            birthdate: {
+                required: true
+            },
+        },
+        messages: {
+            password: {
+                acceptPassword:"must contain numbers and letters"
+            }
+        }
+    });
+});
+jQuery.validator.addMethod("accept", function(value, element, param) {
+    return value.match(new RegExp("." + param + "$"));
+},"english character only");
+jQuery.validator.addMethod("acceptPassword", function(value, element) {
+    return (new RegExp("[a-zA-Z]+").test(value) && new RegExp("[0-9]+").test(value));
+});
 
 function register(){
-    if (validate_form()){
+    if ($("#register_form").valid())
         addUser(new User($("#runame").val(),$("#rpsw").val(),$("#rfn").val(),$("#rln").val(),$("#remail").val(),$("#rbirth").val()));
-        $("#Login").css("display", "block");
-        $("#Register").css("display", "none");
-    }
 }
 
 function validate_form(){
     return validate_notempty() && validate_names() && validate_email() && validate_password();
-}
-
-function validate_notempty(){
-    var result = true;
-    $("#Register div.container input").each(function (index, element) {
-        if ($(element).val() == ""){
-            applyError(element);
-            $(element).after("<br><label><b style=\"color:red;\">Field must be filled</b></label>");
-            result = false;
-        }
-    });
-    return result;
-}
-
-function validate_names(){
-    var fname = $("#rfn").val();
-    var lname = $("#rln").val();
-    var regex = /[a-zA-Z]+/;
-    var result1 = regex.test(fname);
-    var result2 = regex.test(lname);
-
-    if (!result1){
-        applyError($("#rfn"));
-        $("#rfn").after("<br><label><b style=\"color:red;\">First Name can be english latters only</b></label>");
-    }
-    if (!result2){
-        applyError($("#rln"));
-        $("#rln").after("<br><label><b style=\"color:red;\">Last Name can be english latters only</b></label>");
-    }
-    return result1 && result2; 
-}
-
-function validate_email(){
-    var email = $("#remail").val();
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    var result = regex.test(email);
-
-    if (!result){
-        applyError($("#remail"));
-        $("#remail").after("<br><label><b style=\"color:red;\">Enter a valid Email</b></label>");
-
-    }
-    
-    return result; 
-}
-
-function validate_password(){
-    var password = $("#rpsw").val();
-    var regex1 = /[a-zA-Z]+/;
-    var regex2 = /[0-9]+/;
-    
-    if (!regex1.test(password) || !regex2.test(password) || !password.length >= 8){
-        applyError($("#rpsw"));
-        $("#rpsw").after("<br><label><b style=\"color:red;\">Password must contains numbers and characters and at least 8 latters long</b></label>");
-        return false;
-    }
-    
-    return true; 
-}
-
-function applyError(element){
-    $(element).css("box-shadow", "0 0 5px #F08080");
-    $(element).css("border", "1px solid #F08080");
 }

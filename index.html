@@ -6,6 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="login_service.js"></script>
     <script type="text/javascript" src="db.js"></script>
     <script type="text/javascript" src="register_service.js"></script>
@@ -58,25 +59,39 @@
                         <h2 class="text-center">Register</h2>
                     </div>
                 </div>
-                <div class="card-content px-3 mb-3">
-                    <div class="input-group mb-3" >
-                        <input class="mx-2" type="text" placeholder="Username" id="runame">
-                        <input class="mx-2" type="password" placeholder="******" id="rpsw">
+                <form id="register_form">
+                    <div class="card-content px-3 mb-3">
+                        <div class="input-group mb-3" >
+                            <div class="my-error-input">
+                                    <input class="mx-2" type="text" placeholder="Username" id="runame" name="username">
+                            </div>
+                            <div class="my-error-input">
+                                <input class="mx-2" type="password" placeholder="******" id="rpsw" name="password">
+                            </div>
+                        </div>
+                        <div class="input-group mb-3" >
+                            <div class="my-error-input">
+                                <input class="mx-2" type="text" placeholder="First Name" id="rfn" name="firstname">
+                            </div>
+                            <div class="my-error-input">
+                                <input class="mx-2" type="text" placeholder="Last Name" id="rln" name="lastname">
+                            </div>
+                        </div>
+                        <div class="input-group mb-3" >
+                                <div class="my-error-input" style="width: 100%;padding-right: 15px;">
+                                <input class="mx-2 form-control" type="email" placeholder="Email" id="remail" name="email">
+                            </div>
+                        </div>
+                        <div class="input-group mb-3" >
+                            <div class="my-error-input" style="width: 100%;padding-right: 15px;">
+                                <input class="mx-2 form-control" type="date" onkeydown="return false;" placeholder="Birthdate" id="rbirth" name="birthdate">
+                            </div>
+                        </div>
+                        <div class="input-group mb-3" >
+                            <button type="button" class="btn btn-primary btn-block" onclick="register()">Submit</button>
+                        </div>
                     </div>
-                    <div class="input-group mb-3" >
-                        <input class="mx-2" type="text" placeholder="First Name" id="rfn">
-                        <input class="mx-2" type="text" placeholder="Last Name" id="rln">
-                    </div>
-                    <div class="input-group mb-3" >
-                        <input class="mx-2 form-control" type="email" placeholder="Email" id="remail">
-                    </div>
-                    <div class="input-group mb-3" >
-                        <input class="mx-2 form-control" type="date" placeholder="Birthdate" id="rbirth">
-                    </div>
-                    <div class="input-group mb-3" >
-                        <button type="button" class="btn btn-primary btn-block" onclick="register()">Submit</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -120,61 +135,63 @@
                 </div>
                 <div class="modal-body">
                     <label>Movment Settings</label>
-                    <div class="input-group mb-3" >
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Move Up</span>
+                    <form id="settings_form">
+                        <div class="input-group mb-3" >
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Move Up</span>
+                            </div>
+                            <input id="settings_move_up" type="text" class="form-control" onclick="setKeyboardControlKey('Up')" onkeydown="return false;"" name="keyup">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="button" onclick="setKeyboardControlKey('Up')"><i class="far fa-keyboard"></i></button>
+                            </div>
                         </div>
-                        <input type="text" class="form-control" onclick="setKeyboardControlKey('Up')" onkeydown="return false;">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="button" onclick="setKeyboardControlKey('Up')"><i class="far fa-keyboard"></i></button>
+                        <div class="input-group mb-3" >
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Move Down</span>
+                            </div>
+                            <input id="settings_move_down" type="text" class="form-control" onclick="setKeyboardControlKey('Down')" onkeydown="return false;" name="keydown">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="button"><i class="far fa-keyboard" onclick="setKeyboardControlKey('Down')"></i></button>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3" >
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Move Left</span>
+                            </div>
+                            <input id="settings_move_left" type="text" class="form-control" onclick="setKeyboardControlKey('Left')" onkeydown="return false;" name="keyleft">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="button" onclick="setKeyboardControlKey('Left')"><i class="far fa-keyboard"></i></button>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3" >
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Move Right</span>
+                            </div>
+                            <input id="settings_move_right" type="text" class="form-control" onclick="setKeyboardControlKey('Right')" onkeydown="return false;" name="keyright">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="button" onclick="setKeyboardControlKey('Right')"><i class="far fa-keyboard"></i></button>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3" >
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Coins</span>
+                            </div>
+                            <input type="text" class="form-control" onclick="" onkeydown="return false;">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="button"><i class="fas fa-coins"></i></button>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3" >
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Time Limit</span>
+                            </div>
+                            <input type="text" class="form-control" onclick="" onkeydown="return false;">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="button"><i class="fas fa-stopwatch"></i></button>
+                            </div>
                         </div>
                     </div>
-                    <div class="input-group mb-3" >
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Move Down</span>
-                        </div>
-                        <input type="text" class="form-control" onclick="setKeyboardControlKey('Down')" onkeydown="return false;">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="button"><i class="far fa-keyboard" onclick="setKeyboardControlKey('Down')"></i></button>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3" >
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Move Left</span>
-                        </div>
-                        <input type="text" class="form-control" onclick="setKeyboardControlKey('Left')" onkeydown="return false;">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="button" onclick="setKeyboardControlKey('Left')"><i class="far fa-keyboard"></i></button>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3" >
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Move Right</span>
-                        </div>
-                        <input type="text" class="form-control" onclick="setKeyboardControlKey('Right')" onkeydown="return false;">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="button" onclick="setKeyboardControlKey('Right')"><i class="far fa-keyboard"></i></button>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3" >
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Coins</span>
-                        </div>
-                        <input type="text" class="form-control" onclick="" onkeydown="return false;">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="button"><i class="fas fa-coins"></i></button>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3" >
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Time Limit</span>
-                        </div>
-                        <input type="text" class="form-control" onclick="" onkeydown="return false;">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="button"><i class="fas fa-stopwatch"></i></button>
-                        </div>
-                    </div>
-                </div>
+                </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary btn-block" onclick="">Apply</button>
                 </div>
@@ -185,10 +202,12 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Press Key</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <span style="color:gray; text-align: center; size: 14px;" id="keydata"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-block" onclick="$('#SetKeyBoard').modal('toggle')">Cancel</button>
                     </div>
                 </div>
             </div>

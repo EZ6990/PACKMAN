@@ -56,9 +56,20 @@ div.Content:not(#Welcome){
 canvas{
      border: 1px solid black;
 }
-/* #Register .input-group>.input-group-prepend {
-    flex: 0 0 10%;
+
+.my-error-input input{
+    display: block;
 }
-.input-group .input-group-text {
-    width: 100%;
-} */
+.my-error-input span.my-error-class{
+    margin: 0px 0px 0 7px;
+    color: #F08080;
+}
+.my-error-element{
+    box-shadow: 0 0 5px #F08080;
+    border: 1px solid #F08080;
+}
+
+.my-valid-element{
+    box-shadow: 0 0 5px rgb(128, 204, 240);
+    border: 1px solid rgb(128, 204, 240);
+}
