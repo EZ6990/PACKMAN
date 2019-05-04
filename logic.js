@@ -108,14 +108,14 @@ function Start() {
 
     var cnt = 360;
     board=getBoard();
-    food = 60;
+    food = UserSettings['NumberOfCoins'];
     food_remain = food;
     emptyCells=null;
-    numOfghosts = 3;
+    numOfghosts = UserSettings['NumberOfMonsters'];
     start_time = new Date();
-    candyColor = ["black", "green", "red"];
+    candyColor = [UserSettings['CoinsColors'][0], UserSettings['CoinsColors'][1], UserSettings['CoinsColors'][2]];
     $("#lbAttempts").text(3);
-    $("#lblTime").text(10);
+    $("#lblTime").text(UserSettings['GameTime']);
     timeLeft= $("#lblTime").text()*1000;
     createGhost();
     generateCandies(cnt, food);
@@ -172,16 +172,16 @@ function findRandomEmptyCell(board) {
  * @return {number}
  */
 function GetKeyPressed() {
-    if (keysDown['ArrowUp']) {
+    if (keysDown[UserSettings['MovmentSettings']['Up']]) {
         return 1;
     }
-    if (keysDown['ArrowDown']) {
+    if (keysDown[UserSettings['MovmentSettings']['Down']]) {
         return 2;
     }
-    if (keysDown['ArrowLeft']) {
+    if (keysDown[UserSettings['MovmentSettings']['Left']]) {
         return 3;
     }
-    if (keysDown['ArrowRight']) {
+    if (keysDown[UserSettings['MovmentSettings']['Right']]) {
         return 4;
     }
 }

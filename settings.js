@@ -80,6 +80,11 @@ $(document).on('hide.bs.modal',"#Settings", function (e) {
 
 });
 
+$(document).on('hidden.bs.modal',"#Settings", function (e) {
+    $("#Game").css("display", "block");
+    Start();
+});
+
 $(document).on('keydown',  function (e) {
     if($('#SetKeyBoard').is(':visible')) {
         setting_id = "settings_move_" + movmentSet.toLowerCase();
