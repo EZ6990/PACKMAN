@@ -61,7 +61,7 @@ canvas{
 .my-error-input input{
     display: block;
 }
-.my-error-input span.my-error-class{
+span.my-error-class{
     margin: 0px 0px 0 7px;
     color: #F08080;
 }

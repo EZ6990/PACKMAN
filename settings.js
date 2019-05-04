@@ -12,6 +12,9 @@ $(document).ready(function () {
             $(element).addClass('my-valid-element');
         },
         errorElement: 'span',
+        errorPlacement: function(error, element) {
+            error.insertAfter(element.parent(".input-group"));
+        },
         rules: {
            keyup: {
                 required: true,
