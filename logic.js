@@ -321,7 +321,7 @@ function  createIntervals() {
     interval = setInterval(UpdatePosition, 100);
     mouthInterval = setInterval(updateR, 100);
     timeInterval=setInterval(timeCountDown, 1);
-    ghostInterval=setInterval(moveGhosts, 150);
+    ghostInterval=setInterval(moveGhosts, 200);
     candyInterval=setInterval(updateCandy,100);
 }
 function  clearIntervals()

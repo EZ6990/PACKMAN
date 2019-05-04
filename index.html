@@ -25,6 +25,7 @@
             }
         });
         function showPage(pageID){
+            clearIntervals();
             $(".Content").css("display", "none");
             $("#"+pageID).css("display", "block");
         }
