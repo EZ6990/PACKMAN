@@ -106,7 +106,7 @@ function Start() {
 
     score = 0;
 
-    var cnt = 360;
+    var cnt = 270;
     board=getBoard();
     food = UserSettings['NumberOfCoins'];
     food_remain = food;
@@ -134,6 +134,7 @@ function Start() {
     let cell=findRandomEmptyCell(board);
     mCandy=new MCandy(cell[0]*30+15,cell[1]*30+15);
     createIntervals();
+
 }
 
 function updateR(){
@@ -152,7 +153,7 @@ function startSound() {
 }
 
 function findRandomEmptyCell(board) {
-    if (emptyCells === null) {
+    if (emptyCells === null || emptyCells.length===0) {
         emptyCells = new Array();
         for (var k = 1; k < board.length - 1; k++) {
             for (var l = 1; l < board[0].length - 1; l++) {
@@ -161,10 +162,15 @@ function findRandomEmptyCell(board) {
             }
         }
     }
+    Array.prototype.remove = function(from, to) {
+        var rest = this.slice((to || from) + 1 || this.length);
+        this.length = from < 0 ? this.length + from : from;
+        return this.push.apply(this, rest);
+    };
     var ans = emptyCells[Math.round(Math.random() * emptyCells.length - 0.5)];
     var index = emptyCells.indexOf(ans);
     if (typeof index !== 'undefined') {
-        emptyCells.splice(index, 1);
+        emptyCells.remove(index);
     }
     return ans;
 }
@@ -227,6 +233,8 @@ function generateTimeCandy(){
 
 function resetPacmanPosition(){
     var emptyCell = findRandomEmptyCell(board);
+    while ((emptyCell[0] < 4 && (emptyCell[1] > 17 || emptyCell[1] < 4)) || (emptyCell[0] > 17 && emptyCell[1] < 4))
+        emptyCell=findRandomEmptyCell(board);
     board[emptyCell[0]][emptyCell[1]] = 2;
     pacman.i=emptyCell[0];
     pacman.j=emptyCell[1];
@@ -243,7 +251,7 @@ function endGame(msg){
 }
 
 function pacmanIsDead() {
-    if($("#lbAttempts").text()>0) {
+    if($("#lbAttempts").text()>1) {
         resetGhostPosition();
         resetPacmanPosition();
         $("#lbAttempts").text(($("#lbAttempts").text() - 1));
@@ -254,6 +262,7 @@ function pacmanIsDead() {
     }
 
     else {
+
         endGame("You Lost!");
     }
 }
@@ -314,7 +323,7 @@ function drawWall(x,y){
 }
 function drawTimeCandy(i,j){
     let candy =new Image();
-     candy.src="images//time.png";
+    candy.src="images//time.png";
     context.drawImage(candy, i*30, j*30,30,30);
 }
 function  createIntervals() {
@@ -393,12 +402,11 @@ function UpdatePosition() {
         if (score >= 20 && time_elapsed <= 10) {
             pac_color = "green";
         }
-    }
-    if (  food_remain <= 0) {
-        let msg=
-            endGame("we have a winner!!!!");
-    } else {
+
         Draw();
+        if (  food_remain <= 0) {
+            endGame("we have a winner!!!!");
+        }
 
     }//not dead
 }

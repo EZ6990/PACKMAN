@@ -62,8 +62,11 @@ class MCandy {
     updatePosition(board,ctx){
         var neighbours= this.getAllNeighbours(board);
         var ans = neighbours[Math.round(Math.random() * neighbours.length - 0.5)];
-        this._i=ans[0];
-        this._j=ans[1];
+        while (ans[0]==this._i &&ans[1]==this._j) {
+            ans = neighbours[Math.round(Math.random() * neighbours.length - 0.5)];
+        }
+        this._i = ans[0];
+        this._j = ans[1];
         this.updatePositions();
         this.draw(ctx);
     }

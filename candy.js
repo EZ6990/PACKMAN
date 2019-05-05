@@ -1,13 +1,14 @@
 function generateCandies(cnt,food_remain) {
-    var fiveP = food * 0.6;
-    var fifteenP = food * 0.3;
-    var twentyfiveP = food * 0.1;
+    let food=food_remain;
+    var fiveP = Math.round(food * 0.6);
+    var fifteenP = Math.round(food * 0.3);
+    var twentyfiveP = food-(fifteenP+fiveP) ;
 
     for (var i = 1; i < board.length - 1; i++) {
         for (var j = 1; j < board[0].length - 1; j++) {
             var randomNum = Math.random();
 
-            if (randomNum <= 1.0 * food_remain / cnt && board[i][j] === 1) {
+            if (randomNum <= 1.0 * food / cnt && board[i][j] === 1) {
                 randomNum = Math.random();
                 if (randomNum <= 0.6 && fiveP > 0) {
                     fiveP--;
@@ -21,7 +22,7 @@ function generateCandies(cnt,food_remain) {
                     twentyfiveP--;
                     board[i][j] = 1.3;
                 }
-
+                food=fiveP+fifteenP+twentyfiveP;
             }
             cnt--;
 

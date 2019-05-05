@@ -66,6 +66,9 @@ class Pacman {
 }
 function generatePacman() {
     var emptyCell = findRandomEmptyCell(board);
+    while ((emptyCell[0] < 4 && (emptyCell[1] > 17 || emptyCell[1] < 4)) || (emptyCell[0] > 17 && emptyCell[1] < 4))
+        emptyCell=findRandomEmptyCell(board);
+
     board[emptyCell[0]][emptyCell[1]] = 2;
     pacman = new Pacman(emptyCell[0]*30+15, emptyCell[0]*30+15, "yellow");
 }
