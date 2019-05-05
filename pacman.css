@@ -87,3 +87,8 @@ span.my-error-class{
     box-shadow: 0 0 5px rgb(128, 204, 240);
     border: 1px solid rgb(128, 204, 240);
 }
+
+.modal-custom {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
