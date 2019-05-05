@@ -114,6 +114,10 @@ $(document).on('hidden.bs.modal',"#SetKeyBoard", function (event) {
     event.stopPropagation();
 });
 
+// $(document).on('hide.bs.modal',"#gameOver", function (event) {
+//     event.stopPropagation();
+// });
+
 $(document).on('keydown',  function (e) {
     if($('#SetKeyBoard').is(':visible')) {
         setting_id = "settings_move_" + movmentSet.toLowerCase();
