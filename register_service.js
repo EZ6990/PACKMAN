@@ -53,10 +53,9 @@ jQuery.validator.addMethod("acceptPassword", function(value, element) {
 });
 
 function register(){
-    if ($("#register_form").valid())
-        addUser(new User($("#runame").val(),$("#rpsw").val(),$("#rfn").val(),$("#rln").val(),$("#remail").val(),$("#rbirth").val()));
-}
-
-function validate_form(){
-    return validate_notempty() && validate_names() && validate_email() && validate_password();
+    if ($("#register_form").valid()) {
+        addUser(new User($("#runame").val(), $("#rpsw").val(), $("#rfn").val(), $("#rln").val(), $("#remail").val(), $("#rbirth").val()));
+        $(".Content").css("display", "none");
+        $("#Welcome").css("display", "block");
+    }
 }
