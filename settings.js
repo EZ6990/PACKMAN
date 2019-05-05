@@ -130,3 +130,42 @@ function showSettings(){
     $(".Content").css("display", "none");
     $('#Settings').modal({ backdrop: 'static', keyboard: false});
 }
+
+function randomSettings() {
+    UserSettings['MovmentSettings']['Up'] = DefaultSettings['MovmentSettings']['Up'];
+    UserSettings['MovmentSettings']['Down'] = DefaultSettings['MovmentSettings']['Down'];
+    UserSettings['MovmentSettings']['Left'] = DefaultSettings['MovmentSettings']['Left']
+    UserSettings['MovmentSettings']['Right']=DefaultSettings['MovmentSettings']['Right'];
+
+
+    $("#settings_move_up").val(UserSettings['MovmentSettings']['Up']);
+    $("#settings_move_down").val(UserSettings['MovmentSettings']['Down']);
+    $("#settings_move_left").val(UserSettings['MovmentSettings']['Left']);
+    $("#settings_move_right").val(UserSettings['MovmentSettings']['Right']);
+
+
+    $("#points-color-5 input").val((getRandomColor()));
+    $("#points-color-15 input").val(getRandomColor());
+    $("#points-color-25 input").val(getRandomColor());
+
+    $("#number-of-coins").val(Math.round(Math.random()*41-0.5)+50);
+
+    $("input:radio[name='optradio']").removeAttr("checked");
+
+    let valueG=Math.round(Math.random()*4-0.5)
+    $("input:radio[name='optradio'][value=valueG]").prop("checked",true);
+
+    $("#game-time").val(Math.round(Math.random()*100)+60);
+
+
+
+    // UserSettings['CoinsColors'][0] = $("#points-color-5 input").val();
+    // UserSettings['CoinsColors'][1] = $("#points-color-15 input").val();
+    // UserSettings['CoinsColors'][2] = $("#points-color-25 input").val();
+
+    // UserSettings['NumberOfCoins'] = $("#number-of-coins").val();
+    // UserSettings['NumberOfMonsters'] = $("input:radio[name='optradio']:checked").val();
+    //
+    // UserSettings['GameTime'] = $("#game-time").val();
+
+}
