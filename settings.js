@@ -42,6 +42,21 @@ $(document).ready(function () {
                 min:50,
                 max:90,
                 step:1
+            },
+            gametime :{
+                required: true,
+                number: true,
+                min:50,
+                step:1
+            },
+            pointscolor5: {
+                required: true
+            },
+            pointscolor15: {
+                required: true
+            },
+            pointscolor25: {
+                required: true
             }
         }
     });
@@ -59,11 +74,15 @@ $(document).on('show.bs.modal',"#Settings", function (e) {
     $("#settings_move_left").val(UserSettings['MovmentSettings']['Left']);
     $("#settings_move_right").val(UserSettings['MovmentSettings']['Right']);
 
-    $("#5-points-color input").val(UserSettings['CoinsColors'][0]);
-    $("#15-points-color input").val(UserSettings['CoinsColors'][1]);
-    $("#25-points-color input").val(UserSettings['CoinsColors'][2]);
+    $("#points-color-5 input").val(UserSettings['CoinsColors'][0]);
+    $("#points-color-15 input").val(UserSettings['CoinsColors'][1]);
+    $("#points-color-25 input").val(UserSettings['CoinsColors'][2]);
 
     $("#number-of-coins").val(UserSettings['NumberOfCoins']);
+
+    $("#game-time").val(UserSettings['GameTime']);
+
+
 
 });
 $(document).on('hide.bs.modal',"#Settings", function (e) {
@@ -72,13 +91,14 @@ $(document).on('hide.bs.modal',"#Settings", function (e) {
     UserSettings['MovmentSettings']['Left'] = $("#settings_move_left").val();
     UserSettings['MovmentSettings']['Right'] = $("#settings_move_right").val();
 
-    UserSettings['CoinsColors'][0] = $("#5-points-color input").val();
-    UserSettings['CoinsColors'][1] = $("#15-points-color input").val();
-    UserSettings['CoinsColors'][2] = $("#25-points-color input").val();
+    UserSettings['CoinsColors'][0] = $("#points-color-5 input").val();
+    UserSettings['CoinsColors'][1] = $("#points-color-15 input").val();
+    UserSettings['CoinsColors'][2] = $("#points-color-25 input").val();
 
     UserSettings['NumberOfCoins'] = $("#number-of-coins").val();
-    console.log("hiii "+($("input:radio[name='optradio']:checked").val()));
     UserSettings['NumberOfMonsters']=$("input:radio[name='optradio']:checked").val();
+
+    UserSettings['GameTime'] = $("#game-time").val();
 
 });
 
@@ -100,4 +120,9 @@ function setKeyboardControlKey(direction){
     movmentSet = direction;
     $('#keydata').text(UserSettings['MovmentSettings'][direction]);
     showModal('SetKeyBoard');
+}
+
+function showSettings(){
+    $(".Content").css("display", "none");
+    $('#Settings').modal({ backdrop: 'static', keyboard: false});
 }

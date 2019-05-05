@@ -21,7 +21,7 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('#5-points-color, #15-points-color, #25-points-color').colorpicker();
+            $('#points-color-5, #points-color-15, #points-color-25').colorpicker();
         });
 
         $(document).on('keydown',  function (e) {
@@ -189,22 +189,22 @@
                                 <button class="btn btn-outline-primary" type="button"><i class="fas fa-coins"></i></button>
                             </div>
                         </div>
-                        <div id="5-points-color" class="input-group mt-3 d-flex coin-color-picker">
-                            <input type="text" value="#F08080" style="display:none;">
+                        <div id="points-color-5" class="input-group mt-3 d-flex coin-color-picker">
+                            <input type="text" value="#F08080" style="display:none;" name="pointscolor5" required>
                             <div class="input-group-prepend coin-color-picker flex-fill">
                                 <span class="input-group-text">5 Points</span>
                                 <span class="input-group-text colorpicker-input-addon justify-content-center"><i></i></span>
                             </div>
                         </div>
-                        <div id="15-points-color" class="input-group mt-3 d-flex coin-color-picker" title="Using input value">
-                            <input type="text" value="#4169E1" style="display:none;"/>
+                        <div id="points-color-15" class="input-group mt-3 d-flex coin-color-picker" title="Using input value">
+                            <input type="text" value="#4169E1" style="display:none;" name="pointscolor15" required/>
                             <div class="input-group-prepend coin-color-picker flex-fill">
                                 <span class="input-group-text">15 Points</span>
                                 <span class="input-group-text colorpicker-input-addon justify-content-center"><i></i></span>
                             </div>
                         </div>
-                        <div id="25-points-color" class="input-group mt-3 d-flex coin-color-picker" title="Using input value">
-                            <input type="text" value="#38a677" style="display:none;"/>
+                        <div id="points-color-25" class="input-group mt-3 d-flex coin-color-picker" title="Using input value">
+                            <input type="text" value="#38a677" style="display:none;" name="pointscolor25" required/>
                             <div class="input-group-prepend flex-fill">
                                 <span class="input-group-text">25 Points</span>
                                 <span class="input-group-text colorpicker-input-addon justify-content-center"><i></i></span>
@@ -214,14 +214,14 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Time Limit</span>
                             </div>
-                            <input type="text" class="form-control" onclick="" onkeydown="return false;">
+                            <input id="game-time" type="number" min="60" step="1" class="form-control" name="gametime" required/>
                             <div class="input-group-append">
                                 <button class="btn btn-outline-primary" type="button"><i class="fas fa-stopwatch"></i></button>
                             </div>
                         </div>
                         <div id="#NumberOfMonsters" class="input-group mt-3" >
                             <div class="input-group-prepend  flex-fill">
-                                <span class="input-group-text">Select Monsters </span>
+                                <span class="input-group-text">Select Monsters</span>
                             </div>
                             <div class="form-check-inline" style="padding-left: 10px">
                                 <label class="form-check-label">
@@ -272,7 +272,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade hide" id="About">
+    <div class="Content modal fade hide" id="About">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -308,8 +308,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="input-group" >
-                            <button type="button" class="btn btn-primary btn-block" onclick="Start()" data-dismiss="modal">Play Again</button>
-                            <button type="button" class="btn btn-primary btn-block" onclick="showPage('Login')" data-dismiss="modal">Exit</button>
+                            <button type="button" class="btn btn-primary btn-block" onclick="showSettings()" data-dismiss="modal">Play Again</button>
+                            <button type="button" class="btn btn-primary btn-block" onclick="showPage('Welcome')" data-dismiss="modal">Exit</button>
                         </div>
                     </div>
                 </div>
