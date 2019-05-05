@@ -65,7 +65,7 @@ jQuery.validator.addMethod("uniqKey", function(value, element,param) {
     return (value != $("#"+param[0]).val() && value != $("#"+param[1]).val() && value != $("#"+param[2]).val())
 },"must be uniq key");
 
-var UserSettings = DefaultSettings;
+var UserSettings = JSON.parse(JSON.stringify(DefaultSettings));
 var movmentSet = '';
 $(document).on('show.bs.modal',"#Settings", function (e) {
 
@@ -81,6 +81,8 @@ $(document).on('show.bs.modal',"#Settings", function (e) {
     $("#number-of-coins").val(UserSettings['NumberOfCoins']);
 
     $("#game-time").val(UserSettings['GameTime']);
+
+    $("input:radio[name='optradio'][value="+UserSettings['NumberOfMonsters']+"]").prop("checked",true);
 
 
 
@@ -100,6 +102,7 @@ $(document).on('hide.bs.modal',"#Settings", function (e) {
         UserSettings['NumberOfMonsters'] = $("input:radio[name='optradio']:checked").val();
 
         UserSettings['GameTime'] = $("#game-time").val();
+
 });
 
 $(document).on('hidden.bs.modal',"#Settings", function (e) {
@@ -132,40 +135,35 @@ function showSettings(){
 }
 
 function randomSettings() {
-    UserSettings['MovmentSettings']['Up'] = DefaultSettings['MovmentSettings']['Up'];
-    UserSettings['MovmentSettings']['Down'] = DefaultSettings['MovmentSettings']['Down'];
-    UserSettings['MovmentSettings']['Left'] = DefaultSettings['MovmentSettings']['Left']
-    UserSettings['MovmentSettings']['Right']=DefaultSettings['MovmentSettings']['Right'];
+
+    $("#settings_move_up").val(DefaultSettings['MovmentSettings']['Up']);
+    $("#settings_move_down").val(DefaultSettings['MovmentSettings']['Down']);
+    $("#settings_move_left").val(DefaultSettings['MovmentSettings']['Left']);
+    $("#settings_move_right").val(DefaultSettings['MovmentSettings']['Right']);
 
 
-    $("#settings_move_up").val(UserSettings['MovmentSettings']['Up']);
-    $("#settings_move_down").val(UserSettings['MovmentSettings']['Down']);
-    $("#settings_move_left").val(UserSettings['MovmentSettings']['Left']);
-    $("#settings_move_right").val(UserSettings['MovmentSettings']['Right']);
 
+    let ptc5 = getRandomColor();
+    let ptc15 = getRandomColor();
+    let ptc25 = getRandomColor();
 
-    $("#points-color-5 input").val((getRandomColor()));
-    $("#points-color-15 input").val(getRandomColor());
-    $("#points-color-25 input").val(getRandomColor());
+    $("#points-color-5 input").val(ptc5);
+    $("#points-color-5 div.coin-color-picker span.colorpicker-input-addon i").css('background',ptc5);
+
+    $("#points-color-15 input").val(ptc15);
+    $("#points-color-15 div.coin-color-picker span.colorpicker-input-addon i").css('background',ptc15);
+
+    $("#points-color-25 input").val(ptc25);
+    $("#points-color-25 div.coin-color-picker span.colorpicker-input-addon i").css('background',ptc25);
+
 
     $("#number-of-coins").val(Math.round(Math.random()*41-0.5)+50);
 
     $("input:radio[name='optradio']").removeAttr("checked");
 
-    let valueG=Math.round(Math.random()*4-0.5)
-    $("input:radio[name='optradio'][value=valueG]").prop("checked",true);
+    let valueG = Math.round(Math.random()*4-0.5)
+    $("input:radio[name='optradio'][value="+valueG+"]").prop("checked",true);
 
     $("#game-time").val(Math.round(Math.random()*100)+60);
-
-
-
-    // UserSettings['CoinsColors'][0] = $("#points-color-5 input").val();
-    // UserSettings['CoinsColors'][1] = $("#points-color-15 input").val();
-    // UserSettings['CoinsColors'][2] = $("#points-color-25 input").val();
-
-    // UserSettings['NumberOfCoins'] = $("#number-of-coins").val();
-    // UserSettings['NumberOfMonsters'] = $("input:radio[name='optradio']:checked").val();
-    //
-    // UserSettings['GameTime'] = $("#game-time").val();
 
 }
