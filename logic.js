@@ -12,13 +12,13 @@ function getBoard(){
         [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
         [0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
         [0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0],
-        [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0],
+        [0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0],
+        [0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0],
+        [0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0],
+        [0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0],
+        [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0],
         [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
         [0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0],
         [0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0],
@@ -108,7 +108,7 @@ function Start() {
     score = 0;
 
     var cnt = 270;
-    board=getBoard();
+    board=transpose(getBoard());
     food = UserSettings['NumberOfCoins'];
     food_remain = food;
     emptyCells=null;
@@ -123,7 +123,7 @@ function Start() {
     generateCandies(cnt, food);
     generateTimeCandy();
     generatePacman();
-startSound();
+    startSound();
     keysDown = {};
     addEventListener("keydown", function (e) {
         keysDown[e.code] = true;
@@ -153,8 +153,12 @@ function startSound() {
     sound_obj.play();
 }
 function stopSound() {
-    sound_obj.pause();
-    sound_objs.currentTime = 0;
+    if(typeof sound_obj !=="undefined") {
+        sound_obj.pause();
+        if (typeof sound_obj.currentTime !== 'undefined')
+            sound_obj.currentTime = 0;
+    }
+
 }
 
 function findRandomEmptyCell(board) {
@@ -414,4 +418,36 @@ function UpdatePosition() {
         }
 
     }//not dead
+}
+function transpose(a) {
+
+    // Calculate the width and height of the Array
+    var w = a.length || 0;
+    var h = a[0] instanceof Array ? a[0].length : 0;
+
+    // In case it is a zero matrix, no transpose routine needed.
+    if(h === 0 || w === 0) { return []; }
+
+    /**
+     * @var {Number} i Counter
+     * @var {Number} j Counter
+     * @var {Array} t Transposed data is stored in this array.
+     */
+    var i, j, t = [];
+
+    // Loop through every item in the outer array (height)
+    for(i=0; i<h; i++) {
+
+        // Insert a new row (array)
+        t[i] = [];
+
+        // Loop through every item per item in outer array (width)
+        for(j=0; j<w; j++) {
+
+            // Save transposed data.
+            t[i][j] = a[j][i];
+        }
+    }
+
+    return t;
 }

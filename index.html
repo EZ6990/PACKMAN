@@ -33,16 +33,14 @@
         });
         function showPage(pageID){
             clearIntervals();
+            stopSound();
             $(".Content").css("display", "none");
             $("#"+pageID).css("display", "block");
         }
         function showModal(pageID){
             $("#"+pageID).modal({ backdrop: true, keyboard: true});
         }
-function leaveGame(){
-    showPage('Welcome');
-    stopSound();
-}
+
     </script>
 </head>
 <body>
@@ -254,6 +252,7 @@ function leaveGame(){
 
 <!--                </div>-->
 <!--                </form>-->
+
                 <div class="modal-footer mt-3">
                     <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Apply</button>
                 </div>
@@ -312,7 +311,7 @@ function leaveGame(){
                     <div class="modal-body">
                         <div class="input-group" >
                             <button type="button" class="btn btn-primary btn-block" onclick="showSettings()" data-dismiss="modal">Play Again</button>
-                            <button type="button" class="btn btn-primary btn-block" onclick="leaveGame()" data-dismiss="modal">Exit</button>
+                            <button type="button" class="btn btn-primary btn-block" onclick="showPage('Welcome')" data-dismiss="modal">Exit</button>
                         </div>
                     </div>
                 </div>
