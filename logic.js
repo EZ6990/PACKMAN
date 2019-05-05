@@ -52,7 +52,7 @@ function timeCountDown() {
             endGame(msg);
         }
     }
-    $("#lblTime").text(timeLeft / 1000);
+    $("#lblTime").text(parseInt(timeLeft / 1000));
     then = now;
 }
 
