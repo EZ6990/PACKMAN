@@ -101,10 +101,8 @@ function createGhost() {
     }
 }
 function Start() {
-    if($("#UserDetails").children().length == 0  ) {
-        $("#UserDetails").append("NAME: <label>" + CurrentUser.username + "</label>");
-    }
 
+    $("#UserDetails-Name").text(CurrentUser.username);
     score = 0;
 
     var cnt = 270;
