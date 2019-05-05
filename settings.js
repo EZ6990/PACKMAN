@@ -86,25 +86,29 @@ $(document).on('show.bs.modal',"#Settings", function (e) {
 
 });
 $(document).on('hide.bs.modal',"#Settings", function (e) {
-    UserSettings['MovmentSettings']['Up'] = $("#settings_move_up").val();
-    UserSettings['MovmentSettings']['Down'] = $("#settings_move_down").val();
-    UserSettings['MovmentSettings']['Left'] = $("#settings_move_left").val();
-    UserSettings['MovmentSettings']['Right'] = $("#settings_move_right").val();
 
-    UserSettings['CoinsColors'][0] = $("#points-color-5 input").val();
-    UserSettings['CoinsColors'][1] = $("#points-color-15 input").val();
-    UserSettings['CoinsColors'][2] = $("#points-color-25 input").val();
+        UserSettings['MovmentSettings']['Up'] = $("#settings_move_up").val();
+        UserSettings['MovmentSettings']['Down'] = $("#settings_move_down").val();
+        UserSettings['MovmentSettings']['Left'] = $("#settings_move_left").val();
+        UserSettings['MovmentSettings']['Right'] = $("#settings_move_right").val();
 
-    UserSettings['NumberOfCoins'] = $("#number-of-coins").val();
-    UserSettings['NumberOfMonsters']=$("input:radio[name='optradio']:checked").val();
+        UserSettings['CoinsColors'][0] = $("#points-color-5 input").val();
+        UserSettings['CoinsColors'][1] = $("#points-color-15 input").val();
+        UserSettings['CoinsColors'][2] = $("#points-color-25 input").val();
 
-    UserSettings['GameTime'] = $("#game-time").val();
+        UserSettings['NumberOfCoins'] = $("#number-of-coins").val();
+        UserSettings['NumberOfMonsters'] = $("input:radio[name='optradio']:checked").val();
 
+        UserSettings['GameTime'] = $("#game-time").val();
 });
 
 $(document).on('hidden.bs.modal',"#Settings", function (e) {
-    $("#Game").css("display", "block");
-    Start();
+        $("#Game").css("display", "block");
+        Start();
+});
+
+$(document).on('hidden.bs.modal',"#SetKeyBoard", function (event) {
+    event.stopPropagation();
 });
 
 $(document).on('keydown',  function (e) {
@@ -112,14 +116,14 @@ $(document).on('keydown',  function (e) {
         setting_id = "settings_move_" + movmentSet.toLowerCase();
         $('#' + setting_id).val(e.code);
         $('#keydata').val(e.code);
-        $('#SetKeyBoard').modal('toggle'); 
+        $('#SetKeyBoard').modal('hide');
     }
 });
 
 function setKeyboardControlKey(direction){
     movmentSet = direction;
     $('#keydata').text(UserSettings['MovmentSettings'][direction]);
-    showModal('SetKeyBoard');
+    $('#SetKeyBoard').modal({ backdrop: 'static', keyboard: false});
 }
 
 function showSettings(){
