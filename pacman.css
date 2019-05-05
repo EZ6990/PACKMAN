@@ -34,9 +34,9 @@ div.Content:not(#Welcome){
     display: none;
 }
 
-/* #Game{
-    background-color: black;
-} */
+/* #game{*/
+/*    background-color: black;*/
+/*}*/
 
 #Settings .input-group-prepend{
     width: 25%;
@@ -55,7 +55,9 @@ div.Content:not(#Welcome){
 
 canvas{
      border: 1px solid black;
-
+    background-color: #333333;
+    width: 80%;
+    height: 80%;
 }
 
 .my-error-input input{
