@@ -165,7 +165,7 @@ function randomSettings() {
 
     $("input:radio[name='optradio']").removeAttr("checked");
 
-    let valueG = Math.round(Math.random()*4-0.5)
+    let valueG = Math.round(Math.random()*3+1);
     $("input:radio[name='optradio'][value="+valueG+"]").prop("checked",true);
 
     $("#game-time").val(Math.round(Math.random()*100)+60);
