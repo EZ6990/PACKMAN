@@ -117,6 +117,7 @@ function Start() {
     $("#lbAttempts").text(3);
     $("#lblTime").text(UserSettings['GameTime']);
     timeLeft= $("#lblTime").text()*1000;
+
     createGhost();
     generateCandies(cnt, food);
     generateTimeCandy();

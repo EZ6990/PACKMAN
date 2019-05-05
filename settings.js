@@ -64,7 +64,7 @@ $(document).on('show.bs.modal',"#Settings", function (e) {
     $("#25-points-color input").val(UserSettings['CoinsColors'][2]);
 
     $("#number-of-coins").val(UserSettings['NumberOfCoins']);
-    
+
 });
 $(document).on('hide.bs.modal',"#Settings", function (e) {
     UserSettings['MovmentSettings']['Up'] = $("#settings_move_up").val();
@@ -77,6 +77,8 @@ $(document).on('hide.bs.modal',"#Settings", function (e) {
     UserSettings['CoinsColors'][2] = $("#25-points-color input").val();
 
     UserSettings['NumberOfCoins'] = $("#number-of-coins").val();
+    console.log("hiii "+($("input:radio[name='optradio']:checked").val()));
+    UserSettings['NumberOfMonsters']=$("input:radio[name='optradio']:checked").val();
 
 });
 
