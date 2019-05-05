@@ -40,10 +40,10 @@
         function showModal(pageID){
             $("#"+pageID).modal({ backdrop: true, keyboard: true});
         }
-function leaveGame(){
-    showPage('Welcome');
-    stopSound();
-}
+        function leaveGame(){
+            showPage('Welcome');
+            stopSound();
+        }
     </script>
 </head>
 <header style="background-color: #cccccc;height: 8%">
@@ -95,7 +95,7 @@ function leaveGame(){
                             </div>
                         </div>
                         <div class="input-group mb-3" >
-                                <div class="my-error-input" style="width: 100%;padding-right: 15px;">
+                            <div class="my-error-input" style="width: 100%;padding-right: 15px;">
                                 <input class="mx-2 form-control" type="email" placeholder="Email" id="remail" name="email">
                             </div>
                         </div>
@@ -329,24 +329,31 @@ function leaveGame(){
                 </div>
             </div>
         </div>
-<!--        <div class="modal fade hide" id="gameOverUWin">-->
-<!--            <div class="modal-dialog">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header">-->
-<!--                        <h4 class="modal-title" id="#hYouWin"></h4>-->
-<!--                    </div>-->
-<!--                    <div class="modal-body">-->
-<!--                        <div class="input-group" >-->
-<!--                            <button type="button" class="btn btn-primary btn-block" onclick="Start()" data-dismiss="modal">Again!</button>-->
-<!--                            <button type="button" class="btn btn-primary btn-block" onclick="showPage('Login')" data-dismiss="modal">Exit</button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <div class="modal fade hide" id="gameOverUWin">-->
+        <!--            <div class="modal-dialog">-->
+        <!--                <div class="modal-content">-->
+        <!--                    <div class="modal-header">-->
+        <!--                        <h4 class="modal-title" id="#hYouWin"></h4>-->
+        <!--                    </div>-->
+        <!--                    <div class="modal-body">-->
+        <!--                        <div class="input-group" >-->
+        <!--                            <button type="button" class="btn btn-primary btn-block" onclick="Start()" data-dismiss="modal">Again!</button>-->
+        <!--                            <button type="button" class="btn btn-primary btn-block" onclick="showPage('Login')" data-dismiss="modal">Exit</button>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
         <canvas id="canvas" height="660" width="660"></canvas>
 
     </div>
+
 </div>
+<footer>
+    <p>Developed by Tal Malul & Daniel Koyfman <> contant us! https://github.com/EZ6990</p>
+</footer>
+
+
+
 </body>
 </html>
