@@ -39,7 +39,10 @@
         function showModal(pageID){
             $("#"+pageID).modal({ backdrop: true, keyboard: true});
         }
-
+function leaveGame(){
+    showPage('Welcome');
+    stopSound();
+}
     </script>
 </head>
 <body>
@@ -289,8 +292,8 @@
         </div>
     </div>
     <div class="Content" id="Game">
-        <audio id = "targetSound" preload = "auto">
-            <source src = "sounds/Power Bots Loop.mp3" type = "audio/mpeg"/>
+        <audio id = "targetSound" preload = "auto" autoplay loop>
+            <source src = "sounds//Power Bots Loop.mp3" type = "audio/mpeg"/>
         </audio>
         <div id="UserDetails">
 
@@ -309,7 +312,7 @@
                     <div class="modal-body">
                         <div class="input-group" >
                             <button type="button" class="btn btn-primary btn-block" onclick="showSettings()" data-dismiss="modal">Play Again</button>
-                            <button type="button" class="btn btn-primary btn-block" onclick="showPage('Welcome')" data-dismiss="modal">Exit</button>
+                            <button type="button" class="btn btn-primary btn-block" onclick="leaveGame()" data-dismiss="modal">Exit</button>
                         </div>
                     </div>
                 </div>

@@ -32,6 +32,7 @@ function getBoard(){
 $(document).ready(function () {
     context = canvas.getContext("2d");
     sound_obj = document.getElementById("targetSound");
+
     counterR = 0;
     //timeLeft = 10000;
     r = 0;
@@ -122,7 +123,7 @@ function Start() {
     generateCandies(cnt, food);
     generateTimeCandy();
     generatePacman();
-
+startSound();
     keysDown = {};
     addEventListener("keydown", function (e) {
         keysDown[e.code] = true;
@@ -130,7 +131,7 @@ function Start() {
     addEventListener("keyup", function (e) {
         keysDown[e.code] = false;
     }, false);
-    sound_obj.addEventListener("canplaythrough", startSound, false);
+    //sound_obj.addEventListener("canplaythrough", startSound, false);
     let cell=findRandomEmptyCell(board);
     mCandy=new MCandy(cell[0]*30+15,cell[1]*30+15);
     createIntervals();
@@ -150,6 +151,10 @@ function updateCandy(){
 function startSound() {
     //console.log(sound_obj);
     sound_obj.play();
+}
+function stopSound() {
+    sound_obj.pause();
+    sound_objs.currentTime = 0;
 }
 
 function findRandomEmptyCell(board) {
